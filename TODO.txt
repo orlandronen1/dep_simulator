@@ -4,3 +4,27 @@ Current goal: Simulate a single particle moving in a vector force field over tim
 3. Generate a vector field from a force field input
 4. Simulate a particle moving due to the field
 5. Simulate a particle moving due to the field and another force(s)
+
+
+
+Overall Steps:
+Simulate a single particle moving in a vector force field over time due to force(s)
+Correctly generate a vector force field given a user input
+Build a selection of cells 
+
+
+
+All forces acting on a particle:
+DEP force
+gravity
+bouyancy
+drag
+Brownian
+collisions with other simulated particles
+
+
+
+User options/inputs:
+Force field
+Cells
+Start/pause/reset simulation
