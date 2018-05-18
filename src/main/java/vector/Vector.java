@@ -1,11 +1,13 @@
-/*
- * A 3D vector with x, y, and z components.
+/**
  * 
  * @author Ronen Orland
  */
 
 package vector;
 
+/**
+ * A 3-dimensional vector with x, y, and z components
+ */
 public class Vector
 {
 	// The x, y, and z components
@@ -14,7 +16,7 @@ public class Vector
 	private double z;
 	
 	
-	/*
+	/**
 	 * Default constructor, initializes all fields to 0
 	 */
 	public Vector()
@@ -22,7 +24,7 @@ public class Vector
 		this(0.0, 0.0, 0.0);
 	}
 	
-	/*
+	/**
 	 * Constructor that takes initial values for all components
 	 * 
 	 * @param x		the initial x value
@@ -36,7 +38,7 @@ public class Vector
 		this.z = z;
 	}
 	
-	/*
+	/**
 	 * Constructor that copies an input vector
 	 * 
 	 * @param vec	the vector to copy
@@ -49,7 +51,7 @@ public class Vector
 	}
 	
 	
-	/*
+	/**
 	 * Returns the x component
 	 */
 	public double getX()
@@ -57,7 +59,7 @@ public class Vector
 		return x;
 	}
 	
-	/*
+	/**
 	 * Returns the y component
 	 */
 	public double getY()
@@ -65,7 +67,7 @@ public class Vector
 		return y;
 	}
 	
-	/*
+	/**
 	 * Returns the z component
 	 */
 	public double getZ()
@@ -73,7 +75,7 @@ public class Vector
 		return z;
 	}
 	
-	/*
+	/**
 	 * Sets the x component to a new value
 	 * @param x		the new value of the x component
 	 */
@@ -82,7 +84,7 @@ public class Vector
 		this.x = x;
 	}
 	
-	/*
+	/**
 	 * Sets the y component to a new value
 	 * @param y		the new value of the y component
 	 */
@@ -91,7 +93,7 @@ public class Vector
 		this.y = y;
 	}
 	
-	/*
+	/**
 	 * Sets the z component to a new value
 	 * @param z		the new value of the z component
 	 */
@@ -100,7 +102,7 @@ public class Vector
 		this.z = z;
 	}
 	
-	/*
+	/**
 	 * Sets all three components to new values
 	 */
 	public void setAll(double x, double y, double z)
@@ -111,7 +113,7 @@ public class Vector
 	}
 	
 	
-	/*
+	/**
 	 * Adds another vector to this vector
 	 * 
 	 * @param vec	the vector to add to this vector
@@ -123,7 +125,7 @@ public class Vector
 		z += vec.getZ();
 	}
 	
-	/*
+	/**
 	 * Subtracts another vector from this vector
 	 * 
 	 * @param vec	the vector to subtract from this vector
