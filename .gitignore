@@ -23,7 +23,8 @@
 hs_err_pid*
 
 # Eclipse files
+# Not ignoring some for the sake of easier project setup on several machines
 .settings
 bin
-.classpath
-.project
+!.classpath
+!.project
