@@ -12,50 +12,30 @@ import vector.Vector;
 
 /**
  * A generic particle with a mass, radius, and position
+ * 
+ * @author Ronen Orland
  */
 public abstract class Particle 
 {
-	final static double avgMass = 0.0000000000001;     // Typical mass of the particle in kilograms
-	final static double massTolerance = 0.000001;      // Tolerance of the particle's mass in kilograms
+	public final static double avgMass = 0.0000000000001;     // Typical mass of the particle in kilograms
+	public final static double massTolerance = 0.000001;      // Tolerance of the particle's mass in kilograms
 	
-	final static double avgRadius = 0.000001;          // Typical radius of the particle in meters
-	final static double radiusTolerance = 0.0000005;   // Tolerance of the particle's radius in meters
+	public final static double avgRadius = 0.000001;          // Typical radius of the particle in meters
+	public final static double radiusTolerance = 0.0000005;   // Tolerance of the particle's radius in meters
 	
 	// TODO create a field(s) describing the dielectric properties of the particle
 	
-	private Vector position;           // Position of the particle in 3D space
-	private final double mass;         // Mass of this specific particle
-	private final double radius;       // Radius of this specific particle
+	protected Vector position;           // Position of the particle in 3D space
+	protected double mass;         // Mass of this specific particle
+	protected double radius;       // Radius of this specific particle
 	
 	
 	/**
 	 * Default constructor, initializes position
 	 */
-	Particle()
+	public Particle()
 	{
-		position = new Vector();
-		
-		Random rand = new Random();
-		double tolerance = rand.nextGaussian();
-		
-		mass = avgMass + massTolerance * tolerance;
-		radius = avgRadius + radiusTolerance * tolerance;
-	}
-	
-	/**
-	 * Constructor that takes a vector as the initial position
-	 * 
-	 * @param pos	the Vector to use as the initial position
-	 */
-	public Particle(Vector pos)
-	{
-		position = new Vector(pos);
-		
-        Random rand = new Random();
-        double tolerance = rand.nextGaussian();
-        
-        mass = avgMass + massTolerance * tolerance;
-        radius = avgRadius + radiusTolerance * tolerance;
+		this(new Vector());
 	}
 	
 	/**
@@ -67,14 +47,25 @@ public abstract class Particle
 	 */
 	public Particle(double x, double y, double z)
 	{
-		position = new Vector(x, y, z);
+		this(new Vector(x, y, z));
+	}
+    
+    /**
+     * Constructor that takes a vector as the initial position
+     * 
+     * @param pos   the Vector to use as the initial position
+     */
+    public Particle(Vector pos)
+    {
+        position = new Vector(pos);
         
         Random rand = new Random();
         double tolerance = rand.nextGaussian();
+        tolerance %= 1.0;
         
-        mass = avgMass + massTolerance * tolerance;
-        radius = avgRadius + radiusTolerance * tolerance;
-	}
+        mass = avgMass + (massTolerance * tolerance);
+        radius = avgRadius + (radiusTolerance * tolerance);
+    }
 	
 	
     /**

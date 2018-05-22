@@ -1,12 +1,9 @@
-/**
- * 
- * @author Ronen Orland
- */
-
 package vector;
 
 /**
  * A 3-dimensional vector with x, y, and z components
+ * 
+ * @author Ronen Orland
  */
 public class Vector
 {
@@ -126,6 +123,20 @@ public class Vector
 	}
 	
 	/**
+	 * Adds to each component of this vector
+	 * 
+	 * @param x    added to the x component
+	 * @param y    added to the y component
+	 * @param z    added to the z component
+	 */
+	public void add(double x, double y, double z)
+	{
+	    this.x += x;
+	    this.y += y;
+	    this.z += z;
+	}
+	
+	/**
 	 * Subtracts another vector from this vector
 	 * 
 	 * @param vec	the vector to subtract from this vector
@@ -136,4 +147,18 @@ public class Vector
 		y -= vec.getY();
 		z -= vec.getZ();
 	}
+    
+    /**
+     * Subtracts from each component of this vector
+     * 
+     * @param x    subtracted from the x component
+     * @param y    subtracted from the y component
+     * @param z    subtracted from the z component
+     */
+    public void sub(double x, double y, double z)
+    {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+    }
 }
