@@ -28,3 +28,7 @@ User options/inputs:
 Force field
 Cells
 Start/pause/reset simulation
+>3 reset options
+>>Reset particles to starting positions
+>>Reset field to 0
+>>Reset everything, remove particles and field
