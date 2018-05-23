@@ -17,15 +17,15 @@ import vector.Vector;
  */
 public abstract class Particle 
 {
-	public final static double avgMass = 0.0000000000001;     // Typical mass of the particle in kilograms
-	public final static double massTolerance = 0.000001;      // Tolerance of the particle's mass in kilograms
+	public final static double avgMass = 0.0000000000001;          // Typical mass of the particle in kilograms
+	public final static double massTolerance = 0.00000000000005;   // Tolerance of the particle's mass in kilograms
 	
 	public final static double avgRadius = 0.000001;          // Typical radius of the particle in meters
 	public final static double radiusTolerance = 0.0000005;   // Tolerance of the particle's radius in meters
 	
 	// TODO create a field(s) describing the dielectric properties of the particle
 	
-	protected Vector position;           // Position of the particle in 3D space
+	protected Vector position;     // Position of the particle in 3D space
 	protected double mass;         // Mass of this specific particle
 	protected double radius;       // Radius of this specific particle
 	

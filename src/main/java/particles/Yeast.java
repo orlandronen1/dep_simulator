@@ -16,10 +16,10 @@ import vector.Vector;
 public class Yeast extends Particle 
 {
     public final static double avgMass = 0.00000000000006;
-    public final static double massTolerance = 0.000000000000005;       // TODO get a number
+    public final static double massTolerance = 0.00000000000001;       // TODO get a number
 	
     public final static double avgRadius = 0.000005;
-    public final static double radiusTolerance = 0.0000005;     // TODO get a number
+    public final static double radiusTolerance = 0.000001;     // TODO get a number
 	
 	
     /**
