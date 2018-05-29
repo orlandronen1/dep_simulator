@@ -21,6 +21,9 @@ public class FieldAsArray
         Vector position;            // Position of the particle
         int x, y, z;                // Coordinates of the particle
         
+        
+        // *** Make sure only one of these cases is not commented out when trying them out ***
+        
         // Field with all vectors pointing one way
         for (int i = 0; i < fieldSize; i++)
         {
