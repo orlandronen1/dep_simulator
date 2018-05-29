@@ -17,6 +17,7 @@ public class FieldAsArray
         int fieldSize = 10;         // Length of a side of the field
         double timeStep = 0.10;     // Increment of time to advance by per tick
         Vector[][][] field = new Vector[fieldSize][fieldSize][fieldSize];   // Field is a 3D array, as a cube
+        // Can change starting position of particle by changing the numbers in the TestParticle constructor (up to a max of fieldSize)
         Particle particle = new TestParticle(0,0,0);    // Particle to move
         Vector position;            // Position of the particle
         int x, y, z;                // Coordinates of the particle
