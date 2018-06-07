@@ -1,5 +1,5 @@
 Current goal: Simulate a single particle moving in a vector force field over time due to some kind of force.
-1. Choose a development environment
+1. Choose a development environment***
 2. High level pseudo code
 3. Generate a vector field from a force field input
 4. Simulate a particle moving due to the field
@@ -19,7 +19,7 @@ DEP force
 gravity
 bouyancy
 drag
-Brownian
+Brownian (motion)
 collisions with other simulated particles
 
 
