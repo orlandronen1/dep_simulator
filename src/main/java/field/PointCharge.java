@@ -96,4 +96,23 @@ public class PointCharge implements Electrode
     {
         return charge;
     }
+    
+    /**
+     * Updates the position of the PointCharge
+     * 
+     * @param pos   the new position Vector
+     */
+    public void setPosition(Vector pos)
+    {
+        position = new Vector(pos);
+    }
+    
+    /**
+     * 
+     * @return  the position Vector of the pointCharge
+     */
+    public Vector getPosition()
+    {
+        return position;
+    }
 }
