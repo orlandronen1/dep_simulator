@@ -259,6 +259,9 @@ public class Vector
     {
         double abs = Math.sqrt(x*x + y*y + z*z);
         
+        if (abs == 0)
+            return null;
+        
         return new Vector(x/abs, y/abs, z/abs);
     }
 }
