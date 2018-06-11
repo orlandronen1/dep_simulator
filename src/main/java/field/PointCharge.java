@@ -60,9 +60,11 @@ public class PointCharge implements Electrode
         // If on the point charge, field is infinite
         if (coord.equals(position))
         {
-            if (charge > 0)
+            if (charge == 0)        // Zero charge
+                return new Vector();
+            else if (charge > 0)    // Positive charge
                 return new Vector(Double.POSITIVE_INFINITY);
-            else
+            else                    // Negative charge
                 return new Vector(Double.NEGATIVE_INFINITY);
         }
         
@@ -76,6 +78,18 @@ public class PointCharge implements Electrode
         ret.mult(field);        // Multiply unit vector by field
         
         return ret;
+    }
+    
+    /**
+     * Returns a Vector describing the electric field at a coordinate
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param z z coordinate
+     * @return  Vector describing the field at a coordinate
+     */
+    public Vector getField(double x, double y, double z)
+    {
+        return this.getField(new Vector(x,y,z));
     }
     
     /**
@@ -95,5 +109,24 @@ public class PointCharge implements Electrode
     public double getCharge()
     {
         return charge;
+    }
+    
+    /**
+     * Updates the position of the PointCharge
+     * 
+     * @param pos   the new position Vector
+     */
+    public void setPosition(Vector pos)
+    {
+        position = new Vector(pos);
+    }
+    
+    /**
+     * 
+     * @return  the position Vector of the pointCharge
+     */
+    public Vector getPosition()
+    {
+        return position;
     }
 }

@@ -21,6 +21,13 @@ public class VectorTest
         assertTrue(vector.getY() == 0);
         assertTrue(vector.getZ() == 0);
         
+        // Constructor with components all equal
+        vector = new Vector(1.0);
+        assertTrue(vector.getX() == 1.0);
+        assertTrue(vector.getY() == 1.0);
+        assertTrue(vector.getZ() == 1.0);
+        assertTrue(vector.getX() == vector.getY() && vector.getX() == vector.getZ());
+        
         // Constructor with doubles
         double one = 1.0;
         double two = 2.0;
@@ -138,5 +145,64 @@ public class VectorTest
         assertTrue(sub.getX() == 0.0);
         assertTrue(sub.getY() == 0.0);
         assertTrue(sub.getZ() == 0.0);
+    }
+    
+    @Test
+    public void multTest()
+    {
+        Vector vec = new Vector(1,1,1);
+        
+        // Multiply each component by a single value
+        vec.mult(2);
+        assertTrue(vec.getX() == 2.0);
+        assertTrue(vec.getY() == 2.0);
+        assertTrue(vec.getZ() == 2.0);
+        
+        // Multiply each component by different values
+        vec.mult(1,2,3);
+        assertTrue(vec.getX() == 2.0);
+        assertTrue(vec.getY() == 4.0);
+        assertTrue(vec.getZ() == 6.0);
+        
+        // Multiply by another Vector
+        vec.mult(new Vector(1,2,3));
+        assertTrue(vec.getX() == 2.0);
+        assertTrue(vec.getY() == 8.0);
+        assertTrue(vec.getZ() == 18.0);
+    }
+    
+    @Test
+    public void distanceTest()
+    {
+        Vector a = new Vector();
+        Vector b = new Vector(1,0,0);
+        double dist = a.distance(b);
+        assertTrue(dist == 1.0);
+        
+        b.setY(1.0);
+        dist = a.distance(b);
+        assertTrue(dist == Math.sqrt(2.0));
+        
+        b.setZ(1.0);
+        dist = a.distance(b);
+        assertTrue(dist == Math.sqrt(3.0));
+    }
+    
+    @Test
+    public void unitVectorTest()
+    {
+        Vector a = new Vector(1,0,0);
+        Vector unit = a.unit();
+        assertTrue(unit.equals(a));
+        
+        Vector b = new Vector(2,0,0);
+        unit = b.unit();
+        assertTrue(unit.equals(a));
+        
+        Vector c = new Vector(2,2,2);
+        Vector unitC = c.unit();
+        Vector d = new Vector(4,4,4);
+        Vector unitD = d.unit();
+        assertTrue(unitC.equals(unitD));        
     }
 }
