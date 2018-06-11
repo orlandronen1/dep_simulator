@@ -32,3 +32,10 @@ Start/pause/reset simulation
 >>Reset particles to starting positions
 >>Reset field to 0
 >>Reset everything, remove particles and field
+
+
+
+Electrodes:
+Point charge***
+Conducting plate (in each plane)
+Parallel conducting plates (in each plane)
