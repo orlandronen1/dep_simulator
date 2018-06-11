@@ -1,10 +1,3 @@
-/*
- * An abstract class that represents a particle or cell 
- * TODO     If end up using a config file to differentiate cells, make not abstract
- * 
- * @author Ronen Orland
- */
-
 package particles;
 
 import java.util.Random;

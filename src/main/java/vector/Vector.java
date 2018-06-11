@@ -22,6 +22,16 @@ public class Vector
 	}
 	
 	/**
+	 * Constructor that initializes all fields to the same value
+	 * 
+	 * @param i    value for all fields
+	 */
+	public Vector(double i)
+	{
+	    this(i,i,i);
+	}
+	
+	/**
 	 * Constructor that takes initial values for all components
 	 * 
 	 * @param x		the initial x value
@@ -111,6 +121,26 @@ public class Vector
 	
 	
 	/**
+	 * Checks if this vector is equal to another
+	 * @param vec  the vector to check equality against
+	 * @return     true if equal, false if not
+	 */
+	public boolean equals(Vector vec)
+	{
+	    if (x == vec.getX()) 
+	    {
+	        if (y == vec.getY())
+	        {
+	            if (z == vec.getZ())
+	                return true;
+	        }
+	    }
+	    
+        return false;
+	}
+	
+	
+	/**
 	 * Adds another vector to this vector
 	 * 
 	 * @param vec	the vector to add to this vector
@@ -160,5 +190,78 @@ public class Vector
         this.x -= x;
         this.y -= y;
         this.z -= z;
+    }
+    
+    /**
+     * Multiplies each component by a double
+     * 
+     * @param i     value to multiply each component by
+     */
+    public void mult(double i)
+    {
+       x *= i;
+       y *= i;
+       z *= i;
+    }
+    
+    /**
+     * Multiplies each component to other component values
+     * 
+     * @param x     x multiplier
+     * @param y     y multiplier
+     * @param z     z mulitplier
+     */
+    public void mult(double x, double y, double z)
+    {
+        this.x *= x;
+        this.y *= y;
+        this.z *= z;
+    }
+    
+    /**
+     * Mulitiplies the components of this vector by the components of another
+     * 
+     * @param vec   the vector to multiply by component-wise
+     */
+    public void mult(Vector vec)
+    {
+        x *= vec.getX();
+        y *= vec.getY();
+        z *= vec.getZ();
+    }
+    
+    /**
+     * Returns the distance between this Vector and another 
+     * 
+     * @param vec   The Vector to measure the distance to
+     * @return      The distance between the Vectors
+     */
+    public double distance(Vector vec)
+    {
+        double xTerm = x - vec.getX();
+        xTerm *= xTerm;
+        
+        double yTerm = y - vec.getY();
+        yTerm *= yTerm;
+        
+        double zTerm = z - vec.getZ();
+        zTerm *= zTerm;
+        
+        return Math.sqrt(xTerm + yTerm + zTerm);
+    }
+    
+    /**
+     * Returns the unit Vector to this Vector
+     * 
+     * @return  the unit Vector for this Vector
+     */
+    public Vector unit()
+    {
+        double abs = Math.sqrt(x*x + y*y + z*z);
+        
+        if (abs == 0)
+            return null;
+        
+        return new Vector(x/abs, y/abs, z/abs);
     }
 }
