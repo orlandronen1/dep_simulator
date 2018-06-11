@@ -41,6 +41,51 @@ public class PointChargeTest
     @Test
     public void fieldTest()
     {
+        PointCharge charge = new PointCharge();
+        Vector field;
         
+        // Zero charge
+        field = charge.getField(0,0,0);
+        assertTrue(field.getX() == 0);
+        assertTrue(field.getY() == 0);
+        assertTrue(field.getZ() == 0);
+        field = charge.getField(1,1,1);
+        assertTrue(field.getX() == 0);
+        assertTrue(field.getY() == 0);
+        assertTrue(field.getZ() == 0);
+        field = charge.getField(-1,-1,-1);
+        assertTrue(field.getX() == 0);
+        assertTrue(field.getY() == 0);
+        assertTrue(field.getZ() == 0);
+        
+        // Positive charge
+        charge.setCharge(1);
+        field = charge.getField(1,1,1);
+        assertTrue(field.getX() > 0);
+        assertTrue(field.getY() > 0);
+        assertTrue(field.getZ() > 0);
+        field = charge.getField(-1,-1,-1);
+        assertTrue(field.getX() < 0);
+        assertTrue(field.getY() < 0);
+        assertTrue(field.getZ() < 0);
+        field = charge.getField(0,0,0);
+        assertTrue(field.getX() == Double.POSITIVE_INFINITY);
+        assertTrue(field.getY() == Double.POSITIVE_INFINITY);
+        assertTrue(field.getZ() == Double.POSITIVE_INFINITY);
+        
+        // Negative charge
+        charge.setCharge(-1);
+        field = charge.getField(1,1,1);
+        assertTrue(field.getX() < 0);
+        assertTrue(field.getY() < 0);
+        assertTrue(field.getZ() < 0);
+        field = charge.getField(-1,-1,-1);
+        assertTrue(field.getX() > 0);
+        assertTrue(field.getY() > 0);
+        assertTrue(field.getZ() > 0);
+        field = charge.getField(0,0,0);
+        assertTrue(field.getX() == Double.NEGATIVE_INFINITY);
+        assertTrue(field.getY() == Double.NEGATIVE_INFINITY);
+        assertTrue(field.getZ() == Double.NEGATIVE_INFINITY);
     }
 }
