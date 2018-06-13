@@ -32,7 +32,7 @@ public class Dipole implements Electrode
      */
     public Dipole(double charge, Vector pos, Vector neg)
     {
-        this(new PointCharge(charge, pos), new PointCharge(charge * -1,neg));
+        this(new PointCharge(charge, pos), new PointCharge(-charge, neg));
     }
     
     /**
@@ -43,7 +43,7 @@ public class Dipole implements Electrode
      */
     public Dipole(PointCharge pos, PointCharge neg)
     {
-        if (pos.getCharge() != neg.getCharge() * -1)
+        if (pos.getCharge() != -neg.getCharge())
             throw new IllegalArgumentException("Charges are not equal and opposite");
         
         positive = new PointCharge(pos);
@@ -63,4 +63,96 @@ public class Dipole implements Electrode
         return field;
     }
 
+    /**
+     * 
+     * @return  the magnitude of the charge of the dipole
+     */
+    public double getCharge()
+    {
+        return positive.getCharge();
+    }
+    
+    /**
+     * Sets the charges of the dipole particles to be of the given magnitude
+     * 
+     * @param charge    magnitude of the charge to set the dipole to
+     */
+    public void setCharge(double charge)
+    {
+        positive.setCharge(charge);
+        negative.setCharge(-charge);
+    }
+    
+    /**
+     * 
+     * @return  the distance between the dipole charges
+     */
+    public double getDistance()
+    {
+        return distance;
+    }
+    
+    /**
+     * 
+     * @return  the position Vector of the positive charge
+     */
+    public Vector getPositivePosition()
+    {
+        return positive.getPosition();
+    }
+    
+    /**
+     * Sets the position of the positive charge
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
+     */
+    public void setPositivePosition(double x, double y, double z)
+    {
+        setPositivePosition(new Vector(x,y,z));
+    }
+    
+    /**
+     * Sets the position of the positive charge
+     * 
+     * @param pos   the new position Vector of the positive charge
+     */
+    public void setPositivePosition(Vector pos)
+    {
+        positive.setPosition(pos);
+        
+        distance = positive.getPosition().distance(negative.getPosition());   // Calculate the distance between the charges
+    }
+    
+    /**
+     * 
+     * @return  the position Vector of the negative charge
+     */
+    public Vector getNegativePosition()
+    {
+        return negative.getPosition();
+    }
+    
+    /**
+     * Sets the position of the negative charge
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
+     */
+    public void setNegativePosition(double x, double y, double z)
+    {
+        setNegativePosition(new Vector(x,y,z));
+    }
+    
+    /**
+     * Sets the position of the negative charge
+     * 
+     * @param pos   the new position Vector of the negative charge
+     */
+    public void setNegativePosition(Vector pos)
+    {
+        negative.setPosition(pos);
+        
+        distance = positive.getPosition().distance(negative.getPosition());   // Calculate the distance between the charges
+    }
 }
