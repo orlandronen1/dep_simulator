@@ -37,5 +37,7 @@ Start/pause/reset simulation
 
 Electrodes:
 Point charge***
-Conducting plate (in each plane)
-Parallel conducting plates (in each plane)
+Dipole 
+Quadropole
+Infinite dipole lines
+Infinite quadropole lines

@@ -91,6 +91,28 @@ public abstract class Particle
 		return position;
 	}
 	
+	/**
+	 * Sets the position of the particle
+	 * 
+	 * @param x    x-coordinate
+	 * @param y    y-coordinate
+	 * @param z    z-coordinate
+	 */
+	public void setPosition(double x, double y, double z)
+	{
+	    position = new Vector(x,y,z);
+	}
+	
+	/**
+	 * Sets the position of the particle
+	 * 
+	 * @param pos  Vector describing the new position
+	 */
+	public void setPosition(Vector pos)
+	{
+	    position = new Vector(pos);
+	}
+	
 	
 	/**
 	 * Moves the particle based on a given force vector
