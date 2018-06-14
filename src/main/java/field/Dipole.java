@@ -9,18 +9,18 @@ import vector.Vector;
  */
 public class Dipole implements Electrode
 {
-
+    public final static double DEFAULT_CHARGE = 1e-6;   // 1uC
     private PointCharge positive;   // The positive charge
     private PointCharge negative;   // The negative charge
     private double distance;        // The distance between the charges
     
     
     /**
-     * Default constructor, initializes charge magnitudes and positions to 0 and the origin
+     * Default constructor, initializes charge magnitudes to 1uC and positions to (0,0,0) and (1,0,0)
      */
     public Dipole()
     {
-        this(new PointCharge(), new PointCharge());
+        this(new PointCharge(DEFAULT_CHARGE, new Vector()), new PointCharge(-DEFAULT_CHARGE, new Vector(1,0,0)));
     }
     
     /**
@@ -36,10 +36,11 @@ public class Dipole implements Electrode
     }
     
     /**
-     * Constructor that takes two PointCharges. Fails if charge magnitudes are not equal and opposite.
+     * Constructor that takes two PointCharges
      * 
-     * @param pos
-     * @param neg
+     * @param pos   the positive PointCharge
+     * @param neg   the negative PointCharge
+     * @throws      IllegalArgumentException    if charge magnitudes aren't equal and opposite
      */
     public Dipole(PointCharge pos, PointCharge neg)
     {
@@ -126,6 +127,15 @@ public class Dipole implements Electrode
     
     /**
      * 
+     * @return  a copy of the positive PointCharge in this Dipole
+     */
+    public PointCharge getPositive()
+    {
+        return new PointCharge(positive);
+    }
+    
+    /**
+     * 
      * @return  the position Vector of the negative charge
      */
     public Vector getNegativePosition()
@@ -154,5 +164,14 @@ public class Dipole implements Electrode
         negative.setPosition(pos);
         
         distance = positive.getPosition().distance(negative.getPosition());   // Calculate the distance between the charges
+    }
+    
+    /**
+     * 
+     * @return  a copy of the negative charge in this Dipole
+     */
+    public PointCharge getNegative()
+    {
+        return new PointCharge(negative);
     }
 }
