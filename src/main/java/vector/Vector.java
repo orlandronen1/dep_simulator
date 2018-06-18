@@ -140,6 +140,12 @@ public class Vector
 	}
 	
 	
+	public String toString()
+	{
+	    return new String("(" + x + "," + y + "," + z + ")");
+	}
+	
+	
 	/**
 	 * Adds another vector to this vector
 	 * 
@@ -263,5 +269,14 @@ public class Vector
             return null;
         
         return new Vector(x/abs, y/abs, z/abs);
+    }
+    
+    /**
+     * 
+     * @return  the magnitude of this Vector
+     */
+    public double magnitude()
+    {
+        return Math.sqrt( (x * x) + (y * y) + (z * z) );
     }
 }

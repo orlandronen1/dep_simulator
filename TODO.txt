@@ -32,3 +32,12 @@ Start/pause/reset simulation
 >>Reset particles to starting positions
 >>Reset field to 0
 >>Reset everything, remove particles and field
+
+
+
+Electrodes:
+Point charge***
+Dipole 
+Quadropole
+Infinite dipole lines
+Infinite quadropole lines

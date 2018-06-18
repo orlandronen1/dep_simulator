@@ -204,5 +204,8 @@ public class VectorTest
         Vector d = new Vector(4,4,4);
         Vector unitD = d.unit();
         assertTrue(unitC.equals(unitD));        
+        assertTrue(unitC.getX() < 1);
+        assertTrue(unitC.getY() < 1);
+        assertTrue(unitC.getZ() < 1);
     }
 }
