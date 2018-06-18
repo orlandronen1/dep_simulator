@@ -10,16 +10,18 @@ import vector.Vector;
  */
 public class PointCharge implements Electrode
 {
-    final static double k = 8987552000.0;   // Coulomb's constant 
-    private double charge;                  // Charge in C
-    private Vector position;                // Position of the PointCharge
+    public final static double k = 8987552000.0;        // Coulomb's constant
+    public final static double DEFAULT_CHARGE = 1e-6;   // 1uC
+    
+    private double charge;      // Charge in C
+    private Vector position;    // Position of the PointCharge
     
     /**
      * Creates a new PointCharge with a charge of 0C and position of (0,0,0)
      */
     public PointCharge()
     {
-        this(0, new Vector());
+        this(DEFAULT_CHARGE, new Vector());
     }
     
     /**
@@ -39,7 +41,7 @@ public class PointCharge implements Electrode
      */
     public PointCharge(Vector pos)
     {
-        this(0, pos);
+        this(DEFAULT_CHARGE, pos);
     }
     
     /**
@@ -101,6 +103,24 @@ public class PointCharge implements Electrode
     public Vector getField(double x, double y, double z)
     {
         return this.getField(new Vector(x,y,z));
+    }
+    
+    /**
+     * Checks if the PointCharge is equal to another PointCharge
+     * 
+     * @param check     the PointCharge to check against
+     * @return          true if the PointCharges are the same,
+     *                  false otherwise
+     */
+    public boolean equals(PointCharge check)
+    {
+        if (charge != check.getCharge())
+            return false;
+        
+        if (!position.equals(check.getPosition()))
+            return false;
+        
+        return true;
     }
     
     /**

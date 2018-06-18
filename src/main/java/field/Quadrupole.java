@@ -42,8 +42,9 @@ public class Quadrupole implements Electrode
     public Quadrupole(PointCharge pos1, PointCharge pos2, PointCharge neg1, PointCharge neg2)
     {
         // Check if all charges are equal magnitude and that signs are correct
-        if (pos1.getCharge() == pos2.getCharge() && neg1.getCharge() == neg2.getCharge() && 
-                pos1.getCharge() == -neg1.getCharge() && pos2.getCharge() == -neg2.getCharge())
+        if (pos1.getCharge() == pos2.getCharge() && neg1.getCharge() == neg2.getCharge() 
+                && pos1.getCharge() == -neg1.getCharge() && pos2.getCharge() == -neg2.getCharge()
+                && pos1.getCharge() >= 0)
         {
             positive1 = new PointCharge(pos1);
             positive2 = new PointCharge(pos2);
@@ -102,5 +103,14 @@ public class Quadrupole implements Electrode
     public Vector[] getPositions()
     {
         return new Vector[] {positive1.getPosition(), positive2.getPosition(), negative1.getPosition(), negative2.getPosition()};
+    }
+    
+    /**
+     * 
+     * @return  the magnitude of charge on each PointCharge in the Quadrupole
+     */
+    public double getCharge()
+    {
+        return positive1.getCharge();
     }
 }

@@ -140,6 +140,12 @@ public class Vector
 	}
 	
 	
+	public String toString()
+	{
+	    return new String("(" + x + "," + y + "," + z + ")");
+	}
+	
+	
 	/**
 	 * Adds another vector to this vector
 	 * 
