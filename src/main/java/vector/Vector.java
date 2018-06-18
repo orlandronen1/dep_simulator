@@ -264,4 +264,13 @@ public class Vector
         
         return new Vector(x/abs, y/abs, z/abs);
     }
+    
+    /**
+     * 
+     * @return  the magnitude of this Vector
+     */
+    public double magnitude()
+    {
+        return Math.sqrt( (x * x) + (y * y) + (z * z) );
+    }
 }

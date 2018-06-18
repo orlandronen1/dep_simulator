@@ -51,7 +51,18 @@ public class PointCharge implements Electrode
     public PointCharge(double charge, Vector pos)
     {
         this.charge = charge;
-        position = pos;
+        position = new Vector(pos);
+    }
+    
+    /**
+     * Copies a different PointCharge
+     * 
+     * @param copy  the PointCharge to copy
+     */
+    public PointCharge(PointCharge copy)
+    {
+        charge = copy.getCharge();
+        position = new Vector(copy.getPosition());
     }
     
     @Override
@@ -128,5 +139,15 @@ public class PointCharge implements Electrode
     public Vector getPosition()
     {
         return position;
+    }
+    
+    /**
+     * 
+     * @return true if the charge is greater than or equal to 0,
+     *         false if not
+     */
+    public boolean isPositive()
+    {
+        return charge >= 0;
     }
 }
