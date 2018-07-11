@@ -2,6 +2,7 @@ package particles;
 
 import java.util.Random;
 import vector.Vector;
+import medium.Medium;
 
 /**
  * A generic particle with a mass, radius, and position
@@ -16,11 +17,17 @@ public abstract class Particle
 	public final static double avgRadius = 0.000001;          // Typical radius of the particle in meters
 	public final static double radiusTolerance = 0.0000005;   // Tolerance of the particle's radius in meters
 	
+	public final static double permittivity = 1;       // Relative permittivity of the particle
+	private static double fcmReal;     // Real part of the Clausius-Mossotti factor
+	private static double fcmImag;     // Imaginary part of the Clausius-Mossotti factor
+	public final static double conductivity = 1;       // Conductivity of the particle
+	
 	// TODO create a field(s) describing the dielectric properties of the particle
 	
-	protected Vector position;     // Position of the particle in 3D space
-	protected double mass;         // Mass of this specific particle
-	protected double radius;       // Radius of this specific particle
+	protected double velocity;		// Velocity of the particle in m/s
+	protected Vector position;		// Position of the particle in 3D space
+	protected double mass;          // Mass of this specific particle
+	protected double radius;        // Radius of this specific particle
 	
 	
 	/**
@@ -82,6 +89,16 @@ public abstract class Particle
 	}
 	
 	/**
+	 * Returns the velocity of the particle
+	 * 
+	 * @return velocity of the particle
+	 */
+	public double getVelocity()
+	{
+		return velocity;
+	}
+	
+	/**
 	 * Returns the position vector of the particle
 	 * 
 	 * @return position Vector of the particle
@@ -113,6 +130,49 @@ public abstract class Particle
 	    position = new Vector(pos);
 	}
 	
+	/**
+	 * 
+	 * @return relative permittivity of the particle
+	 */
+	public double getPermittivity()
+	{
+	    return permittivity;
+	}
+	
+	/**
+	 * 
+	 * @return real part of the complex permittivity of the particle
+	 */
+	public double getFcmReal()
+	{
+	    return fcmReal;
+	}
+	
+	/**
+	 * 
+	 * @return imaginary part of the complex permittivity of the particle
+	 */
+	public double getFcmImag()
+	{
+	    return fcmImag;
+	}
+	
+	/**
+	 * Calculates the real and imaginary parts of the complex 
+	 * @param medium
+	 * @param frequency
+	 */
+	public void calcFcm(Medium medium, double frequency)
+	{
+	    double a, b, c, d;
+	    a = permittivity - medium.getPermittivity();
+	    b = (conductivity - medium.getConductivity()) / (frequency * frequency);
+	    c = permittivity + (2 * medium.getPermittivity());
+	    d = (conductivity + (2 * medium.getConductivity())) / (frequency * frequency);
+	    
+	    fcmReal = (a*c + b*d) / (c*c + d);
+	    fcmImag = (a*d - b*c) / (c*c + d);
+	}
 	
 	/**
 	 * Moves the particle based on a given force vector
@@ -142,9 +202,12 @@ public abstract class Particle
         double z = position.getZ();
         z = z + ( (1.5 * Math.pow(time, 2) * force.getZ()) / mass);
         
-        // Update position
+        Vector distance = new Vector(x,y,z);
+        
+        // Update position and velocity
         position.setX(x);
         position.setY(y);
         position.setZ(z);
+        velocity = distance.distance(position) / time;
 	}
 }

@@ -21,6 +21,10 @@ public class Yeast extends Particle
     public final static double avgRadius = 0.000005;
     public final static double radiusTolerance = 0.000001;     // TODO get a number
 	
+	public final static double permittivity = 1;               // TODO get a number
+	private static double fcmReal;
+	private static double fcmImag;
+	
 	
     /**
      * Default constructor, initializes position
