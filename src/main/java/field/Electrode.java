@@ -19,4 +19,13 @@ public interface Electrode
      * @return Vector describing the electric field at a coordinate
      */
     public Vector getField(Vector coord);
+    
+    /**
+     * Returns the gradient of the electric field squared rms value. This ends up being
+     * ((-4 * k^2 * Q^2)/(x^2 + y^2 + z^2)^3) * 0.7
+     * 
+     * @param coord     the coordinate Vector to calculate the gradient for
+     * @return          gradient of the electric field squared rms value
+     */
+    public Vector getGradientComponent(Vector coord);
 }

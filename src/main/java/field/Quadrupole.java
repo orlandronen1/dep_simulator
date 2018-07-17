@@ -84,6 +84,22 @@ public class Quadrupole implements Electrode
         
         return field;
     }
+    
+    public Vector getField(double x, double y, double z)
+    {
+        return this.getField(new Vector(x,y,z));
+    }
+    
+    @Override
+    public Vector getGradientComponent(Vector coord)
+    {
+        Vector componentSum = positive1.getGradientComponent(coord);
+        componentSum.add(positive2.getGradientComponent(coord));
+        componentSum.add(negative1.getGradientComponent(coord));
+        componentSum.add(negative2.getGradientComponent(coord));
+        
+        return componentSum;
+    }
 
     /**
      * 

@@ -95,6 +95,7 @@ public class PointCharge implements Electrode
     
     /**
      * Returns a Vector describing the electric field at a coordinate
+     * 
      * @param x x coordinate
      * @param y y coordinate
      * @param z z coordinate
@@ -103,6 +104,34 @@ public class PointCharge implements Electrode
     public Vector getField(double x, double y, double z)
     {
         return this.getField(new Vector(x,y,z));
+    }
+    
+    @Override
+    public Vector getGradientComponent(Vector coord)
+    {
+        Vector component = new Vector(coord);
+        
+        double mult = -4 * 0.7 * (k * k) * (charge * charge);   // -4(k^2)(Q^2)*0.7     Numerator
+        double div = Math.pow(coord.getX(), 2) + Math.pow(coord.getY(), 2) + Math.pow(coord.getZ(), 2);     // (x^2 + y^2 + z^2)^3
+        div = Math.pow(div, 3);     // Raise to power of 3      Denominator
+        mult /= div;                // Divide to get the coefficient
+        
+        component.mult(mult);       // Multiply the coefficient to the vector
+        return component;
+    }
+    
+    /**
+     * Returns the gradient of the electric field squared rms value. This ends up being
+     * ((-4 * k^2 * Q^2)/(x^2 + y^2 + z^2)^3) * 0.7
+     * 
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
+     * @return      gradient of the electric field squared rms value
+     */
+    public Vector getGradientComponent(double x, double y, double z)
+    {
+        return this.getGradientComponent(new Vector(x,y,z));
     }
     
     /**

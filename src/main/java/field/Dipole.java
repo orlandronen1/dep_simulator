@@ -63,7 +63,26 @@ public class Dipole implements Electrode
         
         return field;
     }
+    
+    public Vector getField(double x, double y, double z)
+    {
+        return this.getField(new Vector(x,y,z));
+    }
 
+    @Override
+    public Vector getGradientComponent(Vector coord)
+    {
+        Vector componentSum = positive.getGradientComponent(coord);
+        componentSum.add(negative.getGradientComponent(coord));
+        
+        return componentSum;
+    }
+    
+    public Vector getGradientComponent(double x, double y, double z)
+    {
+        return this.getGradientComponent(new Vector(x,y,z));
+    }
+    
     /**
      * 
      * @return  the magnitude of the charge of the dipole
