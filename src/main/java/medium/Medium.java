@@ -10,7 +10,7 @@ public abstract class Medium
 {
 	
 	public final static double permittivity = 1;   // Relative permittivity of the medium
-	public final static double conductivity = 1;   // Conductivity of the medium
+	public final static double conductivity = 1;   // Conductivity of the medium in S/m
 	public final static double density = 1;        // Density of the medium in kg/m^3
 	
 	

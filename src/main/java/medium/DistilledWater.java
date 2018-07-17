@@ -1,3 +1,7 @@
+/*
+ * https://hypertextbook.com/facts/2007/AllenMa.shtml
+ * https://en.wikipedia.org/wiki/Relative_permittivity
+ */
 package medium;
 
 /**

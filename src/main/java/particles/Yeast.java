@@ -22,6 +22,7 @@ public class Yeast extends Particle
     public final static double radiusTolerance = 0.000001;     // TODO get a number
 	
 	public final static double permittivity = 1;               // TODO get a number
+	public final static double conductivity = 1;
 	private static double fcmReal;
 	private static double fcmImag;
 	

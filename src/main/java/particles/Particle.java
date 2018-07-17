@@ -18,9 +18,9 @@ public abstract class Particle
 	public final static double radiusTolerance = 0.0000005;   // Tolerance of the particle's radius in meters
 	
 	public final static double permittivity = 1;       // Relative permittivity of the particle
+    public final static double conductivity = 1;       // Conductivity of the particle
 	private static double fcmReal;     // Real part of the Clausius-Mossotti factor
 	private static double fcmImag;     // Imaginary part of the Clausius-Mossotti factor
-	public final static double conductivity = 1;       // Conductivity of the particle
 	
 	// TODO create a field(s) describing the dielectric properties of the particle
 	
