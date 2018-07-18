@@ -2,6 +2,8 @@ package unit;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import medium.*;
 import particles.*;
 import vector.Vector;
 
@@ -84,5 +86,27 @@ public class ParticleTest
         assertTrue(position.getY() == y);
         assertTrue(position.getZ() != 0);
         assertTrue(position.getZ() == z);
+    }
+    
+    @Test
+    public void fcmTest()
+    {
+        Particle particle = new Yeast();
+        Medium medium = new DistilledWater();
+        
+        particle.calcFcm(medium, 10);
+        double real1 = particle.getFcmReal();
+        double imag1 = particle.getFcmImag();
+        
+        particle.calcFcm(medium, 5000);
+        double real2 = particle.getFcmReal();
+        double imag2 = particle.getFcmImag();
+        
+        assertTrue(real1 != 0);
+        assertTrue(imag1 != 0);
+        assertTrue(real2 != 0);
+        assertTrue(imag2 != 0);
+        assertTrue(real1 != real2);
+        assertTrue(imag1 != imag2);
     }
 }

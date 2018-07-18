@@ -164,6 +164,9 @@ public abstract class Particle
 	 */
 	public void calcFcm(Medium medium, double frequency)
 	{
+	    if (frequency <= 0)
+	        throw new IllegalArgumentException("Frequency must be a non-zero positive number");
+	    
 	    double a, b, c, d;
 	    a = permittivity - medium.getPermittivity();
 	    b = (conductivity - medium.getConductivity()) / (frequency * frequency);
