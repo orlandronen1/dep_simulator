@@ -8,15 +8,19 @@ package medium;
  */
 public abstract class Medium
 {
-	
 	public final static double permittivity = 1;   // Relative permittivity of the medium
 	public final static double conductivity = 1;   // Conductivity of the medium in S/m
 	public final static double density = 1;        // Density of the medium in kg/m^3
-	
+	public final double level;                     // Height that the medium occupies in m
 	
 	public Medium()
 	{
-		
+		level = 0;
+	}
+	
+	public Medium(double level)
+	{
+	    this.level = level;
 	}
 	
 	/**
@@ -44,5 +48,14 @@ public abstract class Medium
 	public double getDensity()
 	{
 		return density;
+	}
+	
+	/**
+	 * 
+	 * @return the level of the medium
+	 */
+	public double getLevel()
+	{
+	    return level;
 	}
 }

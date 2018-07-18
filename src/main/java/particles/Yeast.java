@@ -6,6 +6,7 @@ package particles;
 
 import java.util.Random;
 
+import medium.Medium;
 import vector.Vector;
 
 /**
@@ -21,8 +22,8 @@ public class Yeast extends Particle
     public final static double avgRadius = 0.000005;
     public final static double radiusTolerance = 0.000001;     // TODO get a number
 	
-	public final static double permittivity = 1;               // TODO get a number
-	public final static double conductivity = 1;
+	public final static double permittivity = 2;               // TODO get a number
+	public final static double conductivity = 2;
 	private static double fcmReal;
 	private static double fcmImag;
 	
@@ -62,5 +63,152 @@ public class Yeast extends Particle
         
         mass = avgMass + (massTolerance * tolerance);
         radius = avgRadius + (radiusTolerance * tolerance);
+    }
+    
+    
+    /**
+     * Returns the mass of the particle
+     * 
+     * @return mass of the particle
+     */
+    public double getMass()
+    {
+        return mass;
+    }
+    
+    /**
+     * Returns the radius of the particle
+     * 
+     * @return radius of the particle
+     */
+    public double getRadius()
+    {
+        return radius;
+    }
+    
+    /**
+     * Returns the velocity of the particle
+     * 
+     * @return velocity of the particle
+     */
+    public double getVelocity()
+    {
+        return velocity;
+    }
+    
+    /**
+     * Returns the position vector of the particle
+     * 
+     * @return position Vector of the particle
+     */
+    public Vector getPosition()
+    {
+        return position;
+    }
+    
+    /**
+     * Sets the position of the particle
+     * 
+     * @param x    x-coordinate
+     * @param y    y-coordinate
+     * @param z    z-coordinate
+     */
+    public void setPosition(double x, double y, double z)
+    {
+        position = new Vector(x,y,z);
+    }
+    
+    /**
+     * Sets the position of the particle
+     * 
+     * @param pos  Vector describing the new position
+     */
+    public void setPosition(Vector pos)
+    {
+        position = new Vector(pos);
+    }
+    
+    /**
+     * 
+     * @return relative permittivity of the particle
+     */
+    public double getPermittivity()
+    {
+        return permittivity;
+    }
+    
+    /**
+     * 
+     * @return real part of the complex permittivity of the particle
+     */
+    public double getFcmReal()
+    {
+        return fcmReal;
+    }
+    
+    /**
+     * 
+     * @return imaginary part of the complex permittivity of the particle
+     */
+    public double getFcmImag()
+    {
+        return fcmImag;
+    }
+    
+    /**
+     * Calculates the real and imaginary parts of the complex 
+     * @param medium
+     * @param frequency
+     */
+    public void calcFcm(Medium medium, double frequency)
+    {
+        if (frequency <= 0)
+            throw new IllegalArgumentException("Frequency must be a non-zero positive number");
+        
+        double a, b, c, d;
+        a = permittivity - medium.getPermittivity();
+        b = (conductivity - medium.getConductivity()) / (frequency * frequency);
+        c = permittivity + (2 * medium.getPermittivity());
+        d = (conductivity + (2 * medium.getConductivity())) / (frequency * frequency);
+        
+        fcmReal = (a*c + b*d) / (c*c + d);
+        fcmImag = (a*d - b*c) / (c*c + d);
+    }
+    
+    /**
+     * Moves the particle based on a given force vector
+     * 
+     * @param force     the vector representing the force acting on the particle
+     * @param time      the time spent moving due to the given force
+     */
+    public void move(Vector force, double time)
+    {
+        /*  TODO check this later, make sure it's correct and accurate
+         *  ---> DON'T want just an approximation
+         *  xf = x0 + v*t + .5*a*t^2
+         *     = x0 + a*t^2 + .5*a*t^2
+         *     = x0 + 1.5*a*t^2
+         *     = x0 + 1.5*t^2*F/m
+         */
+        
+        // Move in x direction
+        double x = position.getX();
+        x = x + ( (1.5 * Math.pow(time, 2) * force.getX()) / mass);
+        
+        // Move in y direction
+        double y = position.getY();
+        y = y + ( (1.5 * Math.pow(time, 2) * force.getY()) / mass);
+        
+        // Move in z direction
+        double z = position.getZ();
+        z = z + ( (1.5 * Math.pow(time, 2) * force.getZ()) / mass);
+        
+        Vector distance = new Vector(x,y,z);
+        
+        // Update position and velocity
+        position.setX(x);
+        position.setY(y);
+        position.setZ(z);
+        velocity = distance.distance(position) / time;
     }
 }
