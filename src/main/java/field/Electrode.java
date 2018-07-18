@@ -22,7 +22,9 @@ public interface Electrode
     
     /**
      * Returns the gradient of the electric field squared rms value. This ends up being
-     * ((-4 * k^2 * Q^2)/(x^2 + y^2 + z^2)^3) * 0.7
+     * ((-4 * k^2 * Q^2)/(x^2 + y^2 + z^2)^3) * 0.7. The coordinate values here are the 
+     * differences between the position of the desired coordinate and the position of
+     * the charge.
      * 
      * @param coord     the coordinate Vector to calculate the gradient for
      * @return          gradient of the electric field squared rms value

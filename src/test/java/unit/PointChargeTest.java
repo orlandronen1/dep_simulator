@@ -17,7 +17,7 @@ public class PointChargeTest
         // Default constructor
         point = new PointCharge();
         check = new Vector(0,0,0);
-        assertTrue(point.getCharge() == 0);
+        assertTrue(point.getCharge() == PointCharge.DEFAULT_CHARGE);
         assertTrue(point.getPosition().equals(check));
         
         // Constructor w/ charge input
@@ -28,7 +28,7 @@ public class PointChargeTest
         // Constructor w/ position input
         point = new PointCharge(new Vector(1,1,1));
         check.setAll(1, 1, 1);
-        assertTrue(point.getCharge() == 0);
+        assertTrue(point.getCharge() == PointCharge.DEFAULT_CHARGE);
         assertTrue(point.getPosition().equals(check));
         
         // Constructor w/ both inputs
@@ -41,7 +41,7 @@ public class PointChargeTest
     @Test
     public void fieldTest()
     {
-        PointCharge charge = new PointCharge();
+        PointCharge charge = new PointCharge(0);
         Vector field;
         
         // Zero charge
@@ -87,5 +87,20 @@ public class PointChargeTest
         assertTrue(field.getX() == Double.NEGATIVE_INFINITY);
         assertTrue(field.getY() == Double.NEGATIVE_INFINITY);
         assertTrue(field.getZ() == Double.NEGATIVE_INFINITY);
+    }
+    
+    @Test
+    public void gradientTest()
+    {
+        PointCharge charge = new PointCharge();
+        Vector grad;
+        
+        grad = charge.getGradientComponent(0,0,0);
+        assertTrue(grad.equals(new Vector(0,0,0)));
+        
+        grad = charge.getGradientComponent(1,1,1);
+        assertFalse(grad.equals(new Vector(0,0,0)));
+        assertTrue(grad.equals(charge.getGradientComponent(1,1,1)));
+        System.err.println(grad);
     }
 }

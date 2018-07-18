@@ -109,7 +109,12 @@ public class PointCharge implements Electrode
     @Override
     public Vector getGradientComponent(Vector coord)
     {
+        if (coord.equals(new Vector()))
+            return new Vector();
+        
+        // Subtract position of charge from coordinate
         Vector component = new Vector(coord);
+        component.sub(position);
         
         double mult = -4 * 0.7 * (k * k) * (charge * charge);   // -4(k^2)(Q^2)*0.7     Numerator
         double div = Math.pow(coord.getX(), 2) + Math.pow(coord.getY(), 2) + Math.pow(coord.getZ(), 2);     // (x^2 + y^2 + z^2)^3
@@ -122,7 +127,9 @@ public class PointCharge implements Electrode
     
     /**
      * Returns the gradient of the electric field squared rms value. This ends up being
-     * ((-4 * k^2 * Q^2)/(x^2 + y^2 + z^2)^3) * 0.7
+     * ((-4 * k^2 * Q^2)/(x^2 + y^2 + z^2)^3) * 0.7. The coordinate values here are the 
+     * differences between the position of the desired coordinate and the position of
+     * the charge.
      * 
      * @param x     x-coordinate
      * @param y     y-coordinate
