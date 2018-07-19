@@ -1,61 +1,34 @@
 package medium;
 
 /**
- * Abstract class representing a generic fluid medium for particles to be suspended within
- * for dielectrophoresis. Has constants for permittivity, conductivity, and density.
+ * Interface to get information pertaining to a fluid medium
  * 
  * @author Ronen Orland
  */
-public abstract class Medium
+public interface Medium
 {
-	public final static double permittivity = 1;   // Relative permittivity of the medium
-	public final static double conductivity = 1;   // Conductivity of the medium in S/m
-	public final static double density = 1;        // Density of the medium in kg/m^3
-	public final double level;                     // Height that the medium occupies in m
-	
-	public Medium()
-	{
-		level = 0;
-	}
-	
-	public Medium(double level)
-	{
-	    this.level = level;
-	}
-	
+
 	/**
 	 * 
 	 * @return	the permittivity of the medium
 	 */
-	public double getPermittivity()
-	{
-		return permittivity;		
-	}
+	public double getPermittivity();
 
     /**
      * 
      * @return  the conductivity of the medium
      */
-    public double getConductivity()
-    {
-        return conductivity;
-    }
+    public double getConductivity();
     
 	/**
 	 * 
 	 * @return	the density of the medium
 	 */
-	public double getDensity()
-	{
-		return density;
-	}
+	public double getDensity();
 	
 	/**
 	 * 
 	 * @return the level of the medium
 	 */
-	public double getLevel()
-	{
-	    return level;
-	}
+	public double getLevel();
 }

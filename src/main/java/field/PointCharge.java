@@ -10,11 +10,9 @@ import vector.Vector;
  */
 public class PointCharge implements Electrode
 {
-    public final static double k = 8987552000.0;        // Coulomb's constant
-    public final static double DEFAULT_CHARGE = 1e-6;   // 1uC
-    
     private double charge;      // Charge in C
     private Vector position;    // Position of the PointCharge
+    
     
     /**
      * Creates a new PointCharge with a charge of 0C and position of (0,0,0)

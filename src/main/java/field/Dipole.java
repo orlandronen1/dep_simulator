@@ -9,7 +9,6 @@ import vector.Vector;
  */
 public class Dipole implements Electrode
 {
-    public final static double DEFAULT_CHARGE = 1e-6;   // 1uC
     private PointCharge positive;   // The positive charge
     private PointCharge negative;   // The negative charge
     private double distance;        // The distance between the charges

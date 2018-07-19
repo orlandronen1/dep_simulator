@@ -13,6 +13,9 @@ import vector.Vector;
  */
 public interface Electrode
 {
+    double k = 8987552000.0;        // Coulomb's constant
+    double DEFAULT_CHARGE = 1e-6;   // 1uC
+    
     /**
      * Returns a Vector describing the electric field at a coordinate
      * 

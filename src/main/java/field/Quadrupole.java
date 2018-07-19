@@ -11,7 +11,6 @@ import vector.Vector;
  */
 public class Quadrupole implements Electrode
 {
-    public final static double DEFAULT_CHARGE = 1e-6;   // 1uC
     private PointCharge positive1;  // The first positive charge
     private PointCharge positive2;  // The second positive charge
     private PointCharge negative1;  // The first negative charge

@@ -9,12 +9,12 @@ package medium;
  * 
  * @author Ronen Orland
  */
-public class DistilledWater extends Medium
+public class DistilledWater implements Medium
 {
-    public final static double permittivity = 80.1;    // Relative permittivity of water at 20C
+    public final static double permittivity = 80.1;     // Relative permittivity of water at 20C
     public final static double conductivity = 5.5 * Math.pow(10, -6);  // Conductivity of water at 20C
     public final static double density = 998.2;     // Density of water at 20C in kg/m^3
-    public final double level;                         // Water level in m
+    public double level;                            // Water level in m
     
     
     public DistilledWater()
@@ -26,40 +26,30 @@ public class DistilledWater extends Medium
     {
         this.level = level;
     }
-    
-    /**
-     * 
-     * @return  the permittivity of the medium
-     */
+
+
     public double getPermittivity()
     {
         return permittivity;        
     }
 
-    /**
-     * 
-     * @return  the conductivity of the medium
-     */
     public double getConductivity()
     {
         return conductivity;
     }
-    
-    /**
-     * 
-     * @return  the density of the medium
-     */
+
     public double getDensity()
     {
         return density;
     }
     
-    /**
-     * 
-     * @return the level of the medium
-     */
     public double getLevel()
     {
         return level;
+    }
+    
+    public void setLevel(double level)
+    {
+        this.level = level;
     }
 }

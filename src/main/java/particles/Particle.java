@@ -5,7 +5,7 @@ import vector.Vector;
 import medium.Medium;
 
 /**
- * A generic particle with a mass, radius, and position
+ * A generic particle with a mass, radius, position, relative permittivity, and conductivity
  * 
  * @author Ronen Orland
  */
@@ -21,8 +21,6 @@ public abstract class Particle
     public final static double conductivity = 1;       // Conductivity of the particle
 	private static double fcmReal;     // Real part of the Clausius-Mossotti factor
 	private static double fcmImag;     // Imaginary part of the Clausius-Mossotti factor
-	
-	// TODO create a field(s) describing the dielectric properties of the particle
 	
 	protected double velocity;		// Velocity of the particle in m/s
 	protected Vector position;		// Position of the particle in 3D space
