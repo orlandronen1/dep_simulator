@@ -162,14 +162,14 @@ public class Polystyrene1um extends Particle
         if (frequency <= 0)
             throw new IllegalArgumentException("Frequency must be a non-zero positive number");
         
-        double a, b, c, d;
-        a = permittivity - medium.getPermittivity();
-        b = (conductivity - medium.getConductivity()) / (frequency * frequency);
-        c = permittivity + (2 * medium.getPermittivity());
-        d = (conductivity + (2 * medium.getConductivity())) / (frequency * frequency);
+        double freq2 = frequency * frequency;
+        double permd = permittivity - medium.getPermittivity();
+        double perms = permittivity + 2*medium.getPermittivity();
+        double condd = conductivity - medium.getConductivity();
+        double conds = conductivity + 2*medium.getConductivity();
         
-        fcmReal = (a*c + b*d) / (c*c + d);
-        fcmImag = (a*d - b*c) / (c*c + d);
+        fcmReal = ((freq2 * permd * perms) + (condd * conds)) / ((freq2 * perms * perms) + (conds * conds));
+        fcmImag = ((frequency * condd * perms) - (permd * conds)) / ((freq2 * perms * perms) + (conds * conds));
     }
     
     /**
