@@ -9,7 +9,7 @@ public class PolystyreneFcm
     {
         Medium medium = new DeionizedWater();
         Particle particle = new Polystyrene1um();
-        double frequency = .0000001;
+        double frequency = .000000001;
         
         for (int i = 0; i < 10; i++)
         {

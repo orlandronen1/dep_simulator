@@ -153,23 +153,24 @@ public class Polystyrene1um extends Particle
     }
     
     /**
-     * Calculates the real and imaginary parts of the complex 
+     * Calculates the real and imaginary parts of the Clausius-Mossotti factor
      * @param medium
      * @param frequency
      */
     public void calcFcm(Medium medium, double frequency)
     {
-        if (frequency <= 0)
-            throw new IllegalArgumentException("Frequency must be a non-zero positive number");
+        if (frequency < 0)
+            throw new IllegalArgumentException("Frequency must be a positive number");
         
         double freq2 = frequency * frequency;
         double permd = permittivity - medium.getPermittivity();
         double perms = permittivity + 2*medium.getPermittivity();
         double condd = conductivity - medium.getConductivity();
         double conds = conductivity + 2*medium.getConductivity();
+        double denom = (freq2 * perms * perms) + (conds * conds);
         
-        fcmReal = ((freq2 * permd * perms) + (condd * conds)) / ((freq2 * perms * perms) + (conds * conds));
-        fcmImag = ((frequency * condd * perms) - (permd * conds)) / ((freq2 * perms * perms) + (conds * conds));
+        fcmReal = ((freq2 * permd * perms) + (condd * conds)) / denom;
+        fcmImag = ((frequency * condd * perms) - (permd * conds)) / denom;
     }
     
     /**
