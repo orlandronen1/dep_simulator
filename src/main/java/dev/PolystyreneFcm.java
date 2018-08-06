@@ -19,5 +19,11 @@ public class PolystyreneFcm
             System.err.println("Real fCM: " + particle.getFcmReal());
             System.err.println("Imag fCM: " + particle.getFcmImag());
         }
+
+        frequency = 0.000044558966479511;
+        particle.calcFcm(medium, frequency);
+        System.err.println("Frequency: " + frequency);
+        System.err.println("Real fCM: " + particle.getFcmReal());
+        System.err.println("Imag fCM: " + particle.getFcmImag());
     }
 }
