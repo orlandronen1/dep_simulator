@@ -1,5 +1,7 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import field.Electrode;
@@ -48,7 +50,7 @@ public class Simulation
      */
     void pause()
     {
-        
+        // stop simulation
     }
     
     /**
@@ -56,7 +58,10 @@ public class Simulation
      */
     void stop()
     {
-        
+        // stop simulation
+        // Iterate over each particle and reset to initial position
+        for (int i = 0; i < particles.size(); i++)
+            particles.get(i).setPosition(initialPositions.get(i));
     }
     
     /**
@@ -64,9 +69,20 @@ public class Simulation
      */
     void reset()
     {
-        
+        // Stop loop, if needed
+        particles = new ArrayList<Particle>();
+        initialPositions = new ArrayList<Vector>();
     }
     
+    
+    /**
+     * 
+     * @return a List of Particles currently in the simulation
+     */
+    List<Particle> getParticles()
+    {
+        return particles;
+    }
     
     /**
      * Sets the Electrode type
