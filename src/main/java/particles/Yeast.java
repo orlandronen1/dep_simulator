@@ -26,6 +26,12 @@ public class Yeast extends Particle
 	public final static double conductivity = 2;
 	private static double fcmReal;
 	private static double fcmImag;
+    
+    protected double velocity;      // Velocity of the particle in m/s
+    protected Vector position;      // Position of the particle in 3D space
+    protected double mass;          // Mass of this specific particle
+    protected double radius;        // Radius of this specific particle
+    
 	
 	
     /**
@@ -162,17 +168,19 @@ public class Yeast extends Particle
      */
     public void calcFcm(Medium medium, double frequency)
     {
-        if (frequency <= 0)
-            throw new IllegalArgumentException("Frequency must be a non-zero positive number");
+        if (frequency < 0)
+            throw new IllegalArgumentException("Frequency must be a positive number");
         
-        double a, b, c, d;
-        a = permittivity - medium.getPermittivity();
-        b = (conductivity - medium.getConductivity()) / (frequency * frequency);
-        c = permittivity + (2 * medium.getPermittivity());
-        d = (conductivity + (2 * medium.getConductivity())) / (frequency * frequency);
+        double angularFreq = frequency * 2 * Math.PI;   // Angular frequency
+        double freq2 = angularFreq * angularFreq;
+        double permd = (permittivity - medium.getPermittivity()) * VACUUM_PERMITTIVITY;
+        double perms = (permittivity + 2*medium.getPermittivity()) * VACUUM_PERMITTIVITY;
+        double condd = conductivity - medium.getConductivity();
+        double conds = conductivity + 2*medium.getConductivity();
+        double denom = (freq2 * perms * perms) + (conds * conds);
         
-        fcmReal = (a*c + b*d) / (c*c + d);
-        fcmImag = (a*d - b*c) / (c*c + d);
+        fcmReal = ((freq2 * permd * perms) + (condd * conds)) / denom;
+        fcmImag = ((angularFreq * condd * perms) - (permd * conds)) / denom;
     }
     
     /**

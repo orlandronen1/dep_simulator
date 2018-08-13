@@ -11,6 +11,7 @@ import medium.Medium;
  */
 public abstract class Particle 
 {
+    public final static double VACUUM_PERMITTIVITY = Math.pow(8.854187817, -12);    // Permittivity of free space
 	public final static double avgMass = 0.0000000000001;          // Typical mass of the particle in kilograms
 	public final static double massTolerance = 0.00000000000005;   // Tolerance of the particle's mass in kilograms
 	
@@ -162,17 +163,19 @@ public abstract class Particle
 	 */
 	public void calcFcm(Medium medium, double frequency)
 	{
-	    if (frequency <= 0)
-	        throw new IllegalArgumentException("Frequency must be a non-zero positive number");
-	    
-	    double a, b, c, d;
-	    a = permittivity - medium.getPermittivity();
-	    b = (conductivity - medium.getConductivity()) / (frequency * frequency);
-	    c = permittivity + (2 * medium.getPermittivity());
-	    d = (conductivity + (2 * medium.getConductivity())) / (frequency * frequency);
-	    
-	    fcmReal = (a*c + b*d) / (c*c + d);
-	    fcmImag = (a*d - b*c) / (c*c + d);
+        if (frequency < 0)
+            throw new IllegalArgumentException("Frequency must be a positive number");
+        
+        double angularFreq = frequency * 2 * Math.PI;   // Angular frequency
+        double freq2 = angularFreq * angularFreq;
+        double permd = (permittivity - medium.getPermittivity()) * VACUUM_PERMITTIVITY;
+        double perms = (permittivity + 2*medium.getPermittivity()) * VACUUM_PERMITTIVITY;
+        double condd = conductivity - medium.getConductivity();
+        double conds = conductivity + 2*medium.getConductivity();
+        double denom = (freq2 * perms * perms) + (conds * conds);
+        
+        fcmReal = ((freq2 * permd * perms) + (condd * conds)) / denom;
+        fcmImag = ((angularFreq * condd * perms) - (permd * conds)) / denom;
 	}
 	
 	/**

@@ -9,7 +9,7 @@ public class PolystyreneFcm
     {
         Medium medium = new DeionizedWater();
         Particle particle = new Polystyrene1um();
-        double frequency = .000000001;
+        double frequency = .1;
         
         for (int i = 0; i < 10; i++)
         {
@@ -19,11 +19,5 @@ public class PolystyreneFcm
             System.err.println("Real fCM: " + particle.getFcmReal());
             System.err.println("Imag fCM: " + particle.getFcmImag());
         }
-
-        frequency = 0.000044558966479511;
-        particle.calcFcm(medium, frequency);
-        System.err.println("Frequency: " + frequency);
-        System.err.println("Real fCM: " + particle.getFcmReal());
-        System.err.println("Imag fCM: " + particle.getFcmImag());
     }
 }
