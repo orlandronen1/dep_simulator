@@ -19,10 +19,11 @@ public class Polystyrene1um extends Particle
     private static double fcmReal;     // Real part of the Clausius-Mossotti factor
     private static double fcmImag;     // Imaginary part of the Clausius-Mossotti factor
     
-    protected double velocity;      // Velocity of the particle in m/s
-    protected Vector position;      // Position of the particle in 3D space
-    protected double mass;          // Mass of this specific particle
-    protected double radius;        // Radius of this specific particle
+    protected double velocity;     // Velocity of the particle in m/s
+    protected Vector position;     // Position of the particle in 3D space
+    protected double mass;         // Mass of this specific particle
+    protected double radius;       // Radius of this specific particle
+    protected Vector gravity;      // Gravity vector
     
     
     /**
@@ -60,6 +61,8 @@ public class Polystyrene1um extends Particle
         
         mass = avgMass + (massTolerance * tolerance);
         radius = avgRadius + (radiusTolerance * tolerance);
+        
+        gravity = new Vector(0, mass * GRAVITY_ACCEL, 0);
     }
     
     
@@ -71,6 +74,15 @@ public class Polystyrene1um extends Particle
     public double getMass()
     {
         return mass;
+    }   
+    
+    /**
+     * 
+     * @return the force Vector due to gravity
+     */
+    public Vector getGravity()
+    {
+        return gravity;
     }
     
     /**

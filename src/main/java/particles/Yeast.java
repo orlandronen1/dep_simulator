@@ -27,10 +27,11 @@ public class Yeast extends Particle
 	private static double fcmReal;
 	private static double fcmImag;
     
-    protected double velocity;      // Velocity of the particle in m/s
-    protected Vector position;      // Position of the particle in 3D space
-    protected double mass;          // Mass of this specific particle
-    protected double radius;        // Radius of this specific particle
+    protected double velocity;     // Velocity of the particle in m/s
+    protected Vector position;     // Position of the particle in 3D space
+    protected double mass;         // Mass of this specific particle
+    protected double radius;       // Radius of this specific particle
+    protected Vector gravity;      // Gravity vector
     
 	
 	
@@ -69,6 +70,8 @@ public class Yeast extends Particle
         
         mass = avgMass + (massTolerance * tolerance);
         radius = avgRadius + (radiusTolerance * tolerance);
+        
+        gravity = new Vector(0, mass * GRAVITY_ACCEL, 0);
     }
     
     
@@ -80,6 +83,15 @@ public class Yeast extends Particle
     public double getMass()
     {
         return mass;
+    }
+    
+    /**
+     * 
+     * @return the force Vector due to gravity
+     */
+    public Vector getGravity()
+    {
+        return gravity;
     }
     
     /**

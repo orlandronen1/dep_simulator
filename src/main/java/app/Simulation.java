@@ -19,7 +19,57 @@ public class Simulation
     private Vector lowBounds;
     private Vector highBounds;
     private Electrode electrode;
+    private Thread simulationLoop;
     
+    private Runnable loop = new Runnable()
+            {
+                public void run()
+                {
+                    while(!Thread.interrupted())
+                    {
+                        try
+                        {
+                            Vector fDEP, fDrag, fBouyancy, fTotal;
+                            
+                            for (Particle particle : particles)
+                            {
+                                fTotal = new Vector();
+                                
+                                // Calculate DEP force
+                                fDEP = new Vector();
+                                
+                                // Calculate buoyant force
+                                fBouyancy = new Vector();
+                                
+                                // Calculate drag force
+                                fDrag = new Vector();
+                                
+                                // Calculate Brownian motion force
+                                // TODO brownian motion
+                                
+                                
+                                // Sum forces
+                                fTotal.add(fDEP);
+                                fTotal.add(fDrag);
+                                fTotal.add(fBouyancy);
+                                fTotal.add(particle.getGravity());
+                                
+                                // Move particle
+                                particle.move(fTotal, deltaTime);
+                                
+                                // Check bounds
+                                checkBounds(particle);
+                                
+                                Thread.sleep(50);   // TODO change this # to a var and decide on a value
+                            }
+                        }
+                        catch (InterruptedException e)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                }
+            };
     
     /**
      * Checks if a particle is within the bounds of the container. If not, moves the particle
@@ -42,7 +92,29 @@ public class Simulation
      */
     void run()
     {
+        /*
+         * for each particle:
+         *  calculate Fdep
+         *  calculate Fbouyancy
+         *  calculate Fdrag
+         *  calculate/generate Fbrownian?
+         *  add above forces and Fgravity
+         *  particle.move(Ftotal)
+         *  checkBounds(particle)
+         *  check collisions (somehow)
+         */
         
+        /* TODO collision detection
+         * maybe would be better to keep another list of Ftotal's
+         * first loop through each particle and get their Ftotal
+         * then check for collisions
+         * if there are any collisions, calculate the forces due to the collision and then add those to the respective Ftotal's
+         * Finally, move() the particles
+         * >would probably only check for 1 collision at a time, or it might just get stuck in checking collisions forever(?)
+         */
+        
+        simulationLoop = new Thread(loop, new String("simulationLoopThread"));
+        simulationLoop.run();
     }
     
     /**
@@ -50,7 +122,7 @@ public class Simulation
      */
     void pause()
     {
-        // stop simulation
+        simulationLoop.interrupt();
     }
     
     /**
@@ -58,10 +130,12 @@ public class Simulation
      */
     void stop()
     {
-        // stop simulation
+        simulationLoop.interrupt();
+        
         // Iterate over each particle and reset to initial position
         for (int i = 0; i < particles.size(); i++)
             particles.get(i).setPosition(initialPositions.get(i));
+        // reset velocities too?
     }
     
     /**
@@ -74,6 +148,22 @@ public class Simulation
         initialPositions = new ArrayList<Vector>();
     }
     
+    /**
+     * Adds a Particle to the simulation
+     * 
+     * @param particle  the Particle to add
+     */
+    void addParticle(Particle particle)
+    {
+        particles.add(particle);
+        // TODO: algorithm for placing particles
+        /*
+         * check medium's level, place particles on that y coordinate
+         * check list of initial positions for other particles
+         *  ifEmpty() == true, start at center point
+         *  else, go to last entry(?)
+         */
+    }
     
     /**
      * 
@@ -83,6 +173,7 @@ public class Simulation
     {
         return particles;
     }
+    
     
     /**
      * Sets the Electrode type

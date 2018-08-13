@@ -12,6 +12,7 @@ import medium.Medium;
 public abstract class Particle 
 {
     public final static double VACUUM_PERMITTIVITY = Math.pow(8.854187817, -12);    // Permittivity of free space
+    public final static double GRAVITY_ACCEL = 9.8;                                 // Acceleration due to gravity
 	public final static double avgMass = 0.0000000000001;          // Typical mass of the particle in kilograms
 	public final static double massTolerance = 0.00000000000005;   // Tolerance of the particle's mass in kilograms
 	
@@ -23,10 +24,11 @@ public abstract class Particle
 	private static double fcmReal;     // Real part of the Clausius-Mossotti factor
 	private static double fcmImag;     // Imaginary part of the Clausius-Mossotti factor
 	
-	protected double velocity;		// Velocity of the particle in m/s
-	protected Vector position;		// Position of the particle in 3D space
-	protected double mass;          // Mass of this specific particle
-	protected double radius;        // Radius of this specific particle
+	protected double velocity;     // Velocity of the particle in m/s
+	protected Vector position;     // Position of the particle in 3D space
+	protected double mass;         // Mass of this specific particle
+	protected double radius;       // Radius of this specific particle
+	protected Vector gravity;      // Gravity vector
 	
 	
 	/**
@@ -64,6 +66,8 @@ public abstract class Particle
         
         mass = avgMass + (massTolerance * tolerance);
         radius = avgRadius + (radiusTolerance * tolerance);
+        
+        gravity = new Vector(0, mass * GRAVITY_ACCEL, 0);
     }
 	
 	
@@ -75,6 +79,15 @@ public abstract class Particle
 	public double getMass()
 	{
 		return mass;
+	}
+	
+	/**
+	 * 
+	 * @return the force Vector due to gravity
+	 */
+	public Vector getGravity()
+	{
+	    return gravity;
 	}
 	
 	/**
