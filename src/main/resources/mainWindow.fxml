@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="720.0" prefWidth="285.0" spacing="5.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Electrode Configuration">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Text>
+            <ChoiceBox prefHeight="30.0" prefWidth="200.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medium">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Text>
+            <ChoiceBox prefHeight="30.0" prefWidth="200.0" />
+            <AnchorPane prefHeight="114.0" prefWidth="285.0">
+               <children>
+                  <Text layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Particles">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox layoutY="57.0" prefHeight="30.0" prefWidth="200.0" />
+                  <Button layoutX="117.0" layoutY="15.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutX="213.0" layoutY="60.0" mnemonicParsing="false" text="Button" />
+               </children>
+            </AnchorPane>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medium">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Text>
+            <ChoiceBox prefHeight="30.0" prefWidth="200.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Frequency">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Text>
+            <AnchorPane prefHeight="64.0" prefWidth="285.0">
+               <children>
+                  <TextField layoutX="14.0" layoutY="20.0" prefHeight="43.0" prefWidth="164.0">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="190.0" layoutY="25.0" mnemonicParsing="false" text="Button" />
+               </children>
+            </AnchorPane>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Voltage">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Text>
+            <AnchorPane prefHeight="64.0" prefWidth="285.0">
+               <children>
+                  <TextField layoutX="14.0" layoutY="20.0" prefHeight="43.0" prefWidth="164.0">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="190.0" layoutY="25.0" mnemonicParsing="false" text="Button" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="29.0" layoutY="33.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutX="117.0" layoutY="33.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutX="208.0" layoutY="33.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutX="29.0" layoutY="118.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutX="208.0" layoutY="118.0" mnemonicParsing="false" text="Button" />
+                  <Text layoutX="132.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1x">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>
