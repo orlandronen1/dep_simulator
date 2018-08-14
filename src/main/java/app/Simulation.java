@@ -11,6 +11,8 @@ import vector.Vector;
 
 public class Simulation
 {
+    private int thread_sleep = 50;
+    
     private List<Particle> particles;
     private List<Vector> initialPositions;
     private Medium medium;
@@ -30,13 +32,20 @@ public class Simulation
                         try
                         {
                             Vector fDEP, fDrag, fBouyancy, fTotal;
+                            double depCoefficient;
                             
                             for (Particle particle : particles)
                             {
                                 fTotal = new Vector();
                                 
                                 // Calculate DEP force
-                                fDEP = new Vector();
+                                /*
+                                 * Fdep = 2 * Pi * particle radius ^ 3 * permittivity of a vaccuum * permittivity of particle *
+                                 *          real part of Clausius-Mossotti factor * gradient of electric field squared
+                                 */
+                                depCoefficient = 2 * Math.PI * Math.pow(particle.getRadius(), 3) * Particle.VACUUM_PERMITTIVITY * particle.getPermittivity() * particle.getFcmReal();
+                                fDEP = electrode.getGradientComponent(particle.getPosition());
+                                fDEP.mult(depCoefficient);
                                 
                                 // Calculate buoyant force
                                 fBouyancy = new Vector();
@@ -60,7 +69,7 @@ public class Simulation
                                 // Check bounds
                                 checkBounds(particle);
                                 
-                                Thread.sleep(50);   // TODO change this # to a var and decide on a value
+                                Thread.sleep(thread_sleep);   // TODO change this # to a var and decide on a value
                             }
                         }
                         catch (InterruptedException e)
@@ -90,7 +99,7 @@ public class Simulation
     /**
      * Starts the simulation
      */
-    void run()
+    void play()
     {
         /*
          * for each particle:
@@ -156,6 +165,7 @@ public class Simulation
     void addParticle(Particle particle)
     {
         particles.add(particle);
+        particle.calcFcm(medium, frequency);
         // TODO: algorithm for placing particles
         /*
          * check medium's level, place particles on that y coordinate
@@ -243,6 +253,9 @@ public class Simulation
     void setMedium(Medium med)
     {
         medium = med;
+        
+        for (Particle particle : particles)
+            particle.calcFcm(medium, frequency);
     }
     
     /**
@@ -283,6 +296,9 @@ public class Simulation
     void setFrequency(double freq)
     {
         frequency = freq;
+        
+        for (Particle particle : particles)
+            particle.calcFcm(medium, freq);
     }
     
     /**
