@@ -12,7 +12,7 @@ import medium.Medium;
 public abstract class Particle 
 {
     public final static double VACUUM_PERMITTIVITY = Math.pow(8.854187817, -12);    // Permittivity of free space
-    public final static double GRAVITY_ACCEL = 9.8;                                 // Acceleration due to gravity
+    public final static double GRAVITY_ACCEL = -9.8;                                // Acceleration due to gravity
 	public final static double avgMass = 0.0000000000001;          // Typical mass of the particle in kilograms
 	public final static double massTolerance = 0.00000000000005;   // Tolerance of the particle's mass in kilograms
 	

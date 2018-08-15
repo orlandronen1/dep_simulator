@@ -11,13 +11,15 @@ import vector.Vector;
 
 public class Simulation
 {
+    public final static int DEFAULT_TIME_STEP = 50;
+    
     private int thread_sleep = 50;
     
     private List<Particle> particles;
     private List<Vector> initialPositions;
     private Medium medium;
     private double frequency;
-    private double deltaTime;
+    private double deltaTime = DEFAULT_TIME_STEP;
     private Vector lowBounds;
     private Vector highBounds;
     private Electrode electrode;
@@ -101,18 +103,6 @@ public class Simulation
      */
     void play()
     {
-        /*
-         * for each particle:
-         *  calculate Fdep
-         *  calculate Fbouyancy
-         *  calculate Fdrag
-         *  calculate/generate Fbrownian?
-         *  add above forces and Fgravity
-         *  particle.move(Ftotal)
-         *  checkBounds(particle)
-         *  check collisions (somehow)
-         */
-        
         /* TODO collision detection
          * maybe would be better to keep another list of Ftotal's
          * first loop through each particle and get their Ftotal
@@ -120,6 +110,14 @@ public class Simulation
          * if there are any collisions, calculate the forces due to the collision and then add those to the respective Ftotal's
          * Finally, move() the particles
          * >would probably only check for 1 collision at a time, or it might just get stuck in checking collisions forever(?)
+         */
+        
+        /*
+         * Collision detection:
+         * Partition 3D space into equal subspaces (based on largest particle?)
+         * Each particle is in exactly one subspace, determined by it's position
+         * Check collision w/ particles in current and adjacent subspaces
+         *   If distance b/w particles is < sum of radii, particles have collided
          */
         
         simulationLoop = new Thread(loop, new String("simulationLoopThread"));

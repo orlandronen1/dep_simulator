@@ -84,7 +84,7 @@
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Text>
-                  <Text layoutX="146.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V" textAlignment="RIGHT" wrappingWidth="114.33204531669617">
+                  <Text fx:id="voltageText" layoutX="146.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V" textAlignment="RIGHT" wrappingWidth="114.33204531669617">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -116,7 +116,7 @@
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font></Button>
-                  <Text layoutX="118.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1x">
+                  <Text fx:id="speedText" layoutX="118.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1x">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
