@@ -23,7 +23,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Text>
-            <ChoiceBox prefHeight="30.0" prefWidth="200.0" />
+            <ChoiceBox fx:id="electrodeChoiceBox" prefHeight="30.0" prefWidth="200.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medium">
                <font>
                   <Font name="Arial" size="24.0" />
@@ -32,7 +32,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Text>
-            <ChoiceBox prefHeight="30.0" prefWidth="200.0" />
+            <ChoiceBox fx:id="mediumChoiceBox" prefHeight="30.0" prefWidth="200.0" />
             <AnchorPane prefHeight="89.0" prefWidth="275.0">
                <children>
                   <Text layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Particles">
@@ -40,9 +40,9 @@
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Text>
-                  <ChoiceBox layoutY="57.0" prefHeight="30.0" prefWidth="200.0" />
-                  <Button layoutX="121.0" layoutY="15.0" mnemonicParsing="false" text="Reset Particles" />
-                  <Button layoutX="213.0" layoutY="60.0" mnemonicParsing="false" text="Add" />
+                  <ChoiceBox fx:id="particlesChoiceBox" layoutY="57.0" prefHeight="30.0" prefWidth="200.0" />
+                  <Button fx:id="resetParticlesButton" layoutX="121.0" layoutY="15.0" mnemonicParsing="false" text="Reset Particles" />
+                  <Button fx:id="addParticleButton" layoutX="213.0" layoutY="60.0" mnemonicParsing="false" text="Add" />
                </children>
                <VBox.margin>
                   <Insets top="20.0" />
@@ -50,18 +50,18 @@
             </AnchorPane>
             <AnchorPane prefHeight="88.0" prefWidth="275.0">
                <children>
-                  <TextField layoutY="38.0" prefHeight="43.0" prefWidth="164.0">
+                  <TextField fx:id="frequencyInput" layoutY="38.0" prefHeight="43.0" prefWidth="164.0">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </TextField>
-                  <Button layoutX="184.0" layoutY="47.0" mnemonicParsing="false" text="Update" />
+                  <Button fx:id="frequencyUpdateButton" layoutX="184.0" layoutY="47.0" mnemonicParsing="false" text="Update" />
                   <Text layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frequency: ">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Text>
-                  <Text layoutX="146.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hz" textAlignment="RIGHT" wrappingWidth="114.33203125">
+                  <Text fx:id="frequencyText" layoutX="146.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hz" textAlignment="RIGHT" wrappingWidth="114.33203125">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -73,12 +73,12 @@
             </AnchorPane>
             <AnchorPane prefHeight="87.0" prefWidth="275.0">
                <children>
-                  <TextField layoutY="38.0" prefHeight="43.0" prefWidth="164.0">
+                  <TextField fx:id="voltageInput" layoutY="38.0" prefHeight="43.0" prefWidth="164.0">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </TextField>
-                  <Button layoutX="188.0" layoutY="47.0" mnemonicParsing="false" text="Update" />
+                  <Button fx:id="voltageUpdateButton" layoutX="188.0" layoutY="47.0" mnemonicParsing="false" text="Update" />
                   <Text layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Voltage:">
                      <font>
                         <Font name="Arial" size="24.0" />
@@ -96,23 +96,23 @@
             </AnchorPane>
             <AnchorPane prefHeight="157.0" prefWidth="275.0">
                <children>
-                  <Button layoutY="29.0" mnemonicParsing="false" prefWidth="70.0" text="Play">
+                  <Button fx:id="playButton" layoutY="29.0" mnemonicParsing="false" prefWidth="70.0" text="Play">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font></Button>
-                  <Button layoutX="90.0" layoutY="29.0" mnemonicParsing="false" text="Pause">
+                  <Button fx:id="pauseButton" layoutX="90.0" layoutY="29.0" mnemonicParsing="false" text="Pause">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font></Button>
-                  <Button layoutX="195.0" layoutY="29.0" mnemonicParsing="false" text="Stop">
+                  <Button fx:id="stopButton" layoutX="195.0" layoutY="29.0" mnemonicParsing="false" text="Stop">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font></Button>
-                  <Button layoutX="35.0" layoutY="98.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="55.0" text="&lt;&lt;">
+                  <Button fx:id="slowerButton" layoutX="35.0" layoutY="98.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="55.0" text="&lt;&lt;">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font></Button>
-                  <Button layoutX="175.0" layoutY="98.0" mnemonicParsing="false" prefWidth="55.0" text="&gt;&gt;">
+                  <Button fx:id="fasterButton" layoutX="175.0" layoutY="98.0" mnemonicParsing="false" prefWidth="55.0" text="&gt;&gt;">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font></Button>
@@ -132,5 +132,6 @@
          </padding>
       </VBox>
       <Separator orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
+      <AnchorPane prefHeight="720.0" prefWidth="795.0" />
    </children>
 </HBox>
