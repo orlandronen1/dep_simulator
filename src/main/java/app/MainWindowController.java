@@ -169,6 +169,8 @@ public class MainWindowController {
         slowerButton.setOnAction(this::slower);
         fasterButton.setOnAction(this::faster);
         
+        // initialize choicebuttons with their selections -> read appropriate folders and use the class names as strings
+        
         // initialize simulation's lower and upper bounds
     }
 }
