@@ -120,8 +120,12 @@ public class Simulation
          *   If distance b/w particles is < sum of radii, particles have collided
          */
         
-        simulationLoop = new Thread(loop, new String("simulationLoopThread"));
-        simulationLoop.run();
+        // If there are particles in the system, run
+        if (!particles.isEmpty())
+        {
+            simulationLoop = new Thread(loop, new String("simulationLoopThread"));
+            simulationLoop.run();
+        }
     }
     
     /**
@@ -129,7 +133,9 @@ public class Simulation
      */
     void pause()
     {
-        simulationLoop.interrupt();
+        // Interrupt loop if it has been initialized and isn't interrupted
+        if (simulationLoop != null && !simulationLoop.isInterrupted())
+            simulationLoop.interrupt();
     }
     
     /**
@@ -137,20 +143,27 @@ public class Simulation
      */
     void stop()
     {
-        simulationLoop.interrupt();
+        // Interrupt loop if it has been initialized and isn't interrupted
+        if (simulationLoop != null && !simulationLoop.isInterrupted())
+            simulationLoop.interrupt();
         
         // Iterate over each particle and reset to initial position
         for (int i = 0; i < particles.size(); i++)
+        {
             particles.get(i).setPosition(initialPositions.get(i));
-        // reset velocities too?
+            // TODO reset velocities too
+        }
     }
     
     /**
-     * Resets the simulation. Removes particles
+     * Resets the simulation. Removes all particles.
      */
     void reset()
     {
-        // Stop loop, if needed
+        // Interrupt loop if it has been initialized and isn't interrupted
+        if (simulationLoop != null && !simulationLoop.isInterrupted())
+            simulationLoop.interrupt();
+        
         particles = new ArrayList<Particle>();
         initialPositions = new ArrayList<Vector>();
     }
@@ -202,6 +215,11 @@ public class Simulation
         return electrode;
     }
     
+    
+    void setVoltage(double voltage)
+    {
+        electrode.setVoltage(voltage);
+    }
     
     /**
      * Sets the lower bounds of the container

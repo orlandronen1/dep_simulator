@@ -15,24 +15,31 @@
    <children>
       <VBox prefHeight="720.0" prefWidth="285.0" spacing="5.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Electrode Configuration">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
+            <AnchorPane minWidth="-Infinity" prefHeight="47.0" prefWidth="285.0">
+               <children>
+                  <Text layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Electrode Configuration">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="electrodeChoiceBox" layoutY="58.0" prefHeight="30.0" prefWidth="200.0" />
+                  <Button fx:id="electrodeUpdateButton" layoutX="216.0" layoutY="61.0" mnemonicParsing="false" text="Update" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="54.0" prefWidth="285.0">
+               <children>
+                  <Text layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medium">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="mediumChoiceBox" layoutY="32.0" prefHeight="30.0" prefWidth="200.0" />
+                  <Button fx:id="mediumUpdateButton" layoutX="216.0" layoutY="36.0" mnemonicParsing="false" text="Update" />
+               </children>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
-            </Text>
-            <ChoiceBox fx:id="electrodeChoiceBox" prefHeight="30.0" prefWidth="200.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medium">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Text>
-            <ChoiceBox fx:id="mediumChoiceBox" prefHeight="30.0" prefWidth="200.0" />
+            </AnchorPane>
             <AnchorPane prefHeight="89.0" prefWidth="275.0">
                <children>
                   <Text layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Particles">
@@ -45,7 +52,7 @@
                   <Button fx:id="addParticleButton" layoutX="213.0" layoutY="60.0" mnemonicParsing="false" text="Add" />
                </children>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets top="15.0" />
                </VBox.margin>
             </AnchorPane>
             <AnchorPane prefHeight="88.0" prefWidth="275.0">
@@ -133,5 +140,6 @@
       </VBox>
       <Separator orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
       <AnchorPane prefHeight="720.0" prefWidth="795.0" />
+      <Button fx:id="voltageUpdateButton1" mnemonicParsing="false" text="Update" />
    </children>
 </HBox>

@@ -99,7 +99,12 @@ public class Quadrupole implements Electrode
         
         return componentSum;
     }
-
+    
+    public void setVoltage(double voltage)
+    {
+        // TODO calculate what needs
+    }
+   
     /**
      * 
      * @return an array of the PointCharges in the Quadrupole. The charges are in the following order:

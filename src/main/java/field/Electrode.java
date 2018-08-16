@@ -33,4 +33,11 @@ public interface Electrode
      * @return          gradient of the electric field squared rms value
      */
     public Vector getGradientComponent(Vector coord);
+    
+    /**
+     * Sets the voltage for the electrode
+     * 
+     * @param voltage   the voltage to use
+     */
+    public void setVoltage(double voltage);
 }

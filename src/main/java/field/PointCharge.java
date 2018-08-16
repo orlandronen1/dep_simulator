@@ -139,6 +139,11 @@ public class PointCharge implements Electrode
         return this.getGradientComponent(new Vector(x,y,z));
     }
     
+    public void setVoltage(double voltage)
+    {
+        // TODO calculate what needs
+    }
+   
     /**
      * Checks if the PointCharge is equal to another PointCharge
      * 

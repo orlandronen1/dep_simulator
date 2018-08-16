@@ -82,6 +82,11 @@ public class Dipole implements Electrode
         return this.getGradientComponent(new Vector(x,y,z));
     }
     
+    public void setVoltage(double voltage)
+    {
+        // TODO calculate what needs
+    }
+    
     /**
      * 
      * @return  the magnitude of the charge of the dipole
