@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import field.Dipole;
 import field.Electrode;
+import medium.DeionizedWater;
 import medium.Medium;
 import particles.Particle;
 import vector.Vector;
@@ -12,17 +14,19 @@ import vector.Vector;
 public class Simulation
 {
     public final static int DEFAULT_TIME_STEP = 50;
+    public final static double DEFAULT_BOUND = 150e-6;  // 150um
     
     private int thread_sleep = 50;
     
-    private List<Particle> particles;
-    private List<Vector> initialPositions;
-    private Medium medium;
-    private double frequency;
+    private List<Particle> particles = new ArrayList<Particle>();
+    private List<Vector> initialPositions = new ArrayList<Vector>();
+    private Medium medium = new DeionizedWater(DEFAULT_BOUND / 2);
+    private double frequency = 1000;
     private double deltaTime = DEFAULT_TIME_STEP;
-    private Vector lowBounds;
-    private Vector highBounds;
-    private Electrode electrode;
+    private Vector lowBounds = new Vector();
+    private Vector highBounds = new Vector(DEFAULT_BOUND);
+    private Electrode electrode = new Dipole(0, new Vector(Simulation.DEFAULT_BOUND / 5, 0, Simulation.DEFAULT_BOUND / 2), 
+            new Vector(Simulation.DEFAULT_BOUND * 4 / 5, 0, Simulation.DEFAULT_BOUND / 2));
     private Thread simulationLoop;
     
     private Runnable loop = new Runnable()
@@ -50,7 +54,9 @@ public class Simulation
                                 fDEP.mult(depCoefficient);
                                 
                                 // Calculate buoyant force
-                                fBouyancy = new Vector();
+                                // TODO do the actual calculation
+                                fBouyancy = new Vector(particle.getGravity());
+                                fBouyancy.mult(-1);
                                 
                                 // Calculate drag force
                                 fDrag = new Vector();
@@ -90,12 +96,39 @@ public class Simulation
      */
     void checkBounds(Particle particle)
     {
-        /*
-         * get position and radius of particle
-         * use these to see if it is outside the bounds of the container
-         * if yes, move it to be within the container
-         * if no, do nothing
-         */
+        Vector position = particle.getPosition();
+        double radius = particle.getRadius();
+        double x, y, z;
+        
+        // Check x position
+        if (position.getX() < lowBounds.getX())
+            x = lowBounds.getX() + radius;
+        else if (position.getX() > highBounds.getX())
+            x = highBounds.getX() - radius;
+        else
+            x = position.getX();
+        
+        // Check y position
+        if (position.getY() < lowBounds.getY())
+            y = lowBounds.getY() + radius;
+        else if (position.getY() > highBounds.getY())
+            y = highBounds.getY() - radius;
+        else
+            y = position.getY();
+        
+        // Check z position
+        if (position.getZ() < lowBounds.getZ())
+            z = lowBounds.getZ() + radius;
+        else if (position.getZ() > highBounds.getZ())
+            z = highBounds.getZ() - radius;
+        else
+            z = position.getZ();
+        
+        // Check if near an electrode
+        // Want to maintain some distance from electrodes so numbers don't become unreasonably large
+        
+        
+        particle.setPosition(x, y, z);
     }
     
     /**

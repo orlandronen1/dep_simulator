@@ -15,6 +15,7 @@ public interface Electrode
 {
     double k = 8987552000.0;        // Coulomb's constant
     double DEFAULT_CHARGE = 1e-6;   // 1uC
+    double MIN_RADIUS = 1e-6;       // Distance from center of a point charge to allow particles to approach
     
     /**
      * Returns a Vector describing the electric field at a coordinate
@@ -35,7 +36,8 @@ public interface Electrode
     public Vector getGradientComponent(Vector coord);
     
     /**
-     * Sets the voltage for the electrode
+     * Sets the voltage for the electrode. Assumes that the closest distance used to measure from a point charge's position
+     * is MIN_RADIUS.
      * 
      * @param voltage   the voltage to use
      */

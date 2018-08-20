@@ -140,6 +140,5 @@
       </VBox>
       <Separator orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
       <AnchorPane prefHeight="720.0" prefWidth="795.0" />
-      <Button fx:id="voltageUpdateButton1" mnemonicParsing="false" text="Update" />
    </children>
 </HBox>

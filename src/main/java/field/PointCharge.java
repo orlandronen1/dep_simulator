@@ -141,7 +141,8 @@ public class PointCharge implements Electrode
     
     public void setVoltage(double voltage)
     {
-        // TODO calculate what needs
+        double newCharge = voltage * MIN_RADIUS / k;
+        this.setCharge(newCharge);
     }
    
     /**

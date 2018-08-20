@@ -84,7 +84,10 @@ public class Dipole implements Electrode
     
     public void setVoltage(double voltage)
     {
-        // TODO calculate what needs
+        // Radius from positive charge is MIN_RADIUS
+        double radiusNeg = distance - 2 * MIN_RADIUS;
+        double newCharge = (voltage * MIN_RADIUS * radiusNeg) / (k * (radiusNeg - MIN_RADIUS));
+        this.setCharge(newCharge);
     }
     
     /**
