@@ -1,5 +1,6 @@
 package app;
 
+import java.io.File;
 /**
  * The controller class for the main window of the application. Handles user inputs and 
  * contains the camera.
@@ -13,6 +14,7 @@ import field.*;
 import vector.Vector;
 import medium.*;
 import particles.Particle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -64,7 +66,7 @@ public class MainWindowController {
         
         try
         {
-            Class<?> type = Class.forName(choice);
+            Class<?> type = Class.forName("bin/field/" + choice);
             Electrode config = (Electrode) type.newInstance();
             simulation.setElectrode(config);
         }
@@ -89,7 +91,7 @@ public class MainWindowController {
         
         try
         {
-            Class<?> type = Class.forName(choice);
+            Class<?> type = Class.forName("/src/main/java/medium/" + choice);
             Medium med = (Medium) type.newInstance();
             simulation.setMedium(med);
         }
@@ -267,6 +269,65 @@ public class MainWindowController {
         
         simulation = new Simulation();
         // Initialize choicebuttons with their selections -> read appropriate folders and use the class names as strings
+        initializeChoiceBoxes();
+    }
+    
+    
+    private void initializeChoiceBoxes()
+    {
+        File folder;
+        String[] files;
+        int cut;
         
+        // Electrodes
+        folder = new File("src/main/java/field");
+        files = folder.list();
+        ObservableList<String> electrodes = electrodeChoiceBox.getItems();
+        
+        for (String file : files)
+        {
+            cut = file.indexOf(".");
+            file = file.substring(0, cut);
+            
+            if (file.equals("Electrode"))
+                continue;
+            
+            electrodes.add(file);
+        }
+        electrodeChoiceBox.setItems(electrodes);
+        
+        // Mediums
+        folder = new File("src/main/java/medium");
+        files = folder.list();
+        ObservableList<String> mediums = mediumChoiceBox.getItems();
+        
+        for (String file : files)
+        {
+            cut = file.indexOf(".");
+            file = file.substring(0, cut);
+            
+            if (file.equals("Medium"))
+                continue;
+            
+            mediums.add(file);
+        }
+        mediumChoiceBox.setItems(mediums);
+        
+        // Particles
+        folder = new File("src/main/java/particles");
+        files = folder.list();
+        ObservableList<String> particles = particlesChoiceBox.getItems();
+        
+        for (String file : files)
+        {
+            cut = file.indexOf(".");
+            file = file.substring(0, cut);
+            
+            if (file.equals("Particle") || file.equals("TestParticle"))
+                continue;
+            
+            particles.add(file);
+        }
+        particlesChoiceBox.setItems(particles);
     }
 }
