@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import field.*;
-import vector.Vector;
 import medium.*;
 import particles.Particle;
 import javafx.collections.ObservableList;
@@ -56,7 +55,7 @@ public class MainWindowController {
     @FXML private Button fasterButton;          // Increases the simulation speed
     @FXML private Text speedText;               // Text that displays the simulation speed rate
 
-    private Simulation simulation;              // The simulation
+//    private Simulation simulation;              // The simulation
     private double speedMultiplier = 1;         // The simulation speed multiplier
     
     
@@ -68,7 +67,7 @@ public class MainWindowController {
         {
             Class<?> type = Class.forName("field." + choice);
             Electrode config = (Electrode) type.newInstance();
-            simulation.setElectrode(config);
+            Simulation.setElectrode(config);
         }
         catch (InstantiationException e)
         {
@@ -93,7 +92,7 @@ public class MainWindowController {
         {
             Class<?> type = Class.forName("medium." + choice);
             Medium med = (Medium) type.newInstance();
-            simulation.setMedium(med);
+            Simulation.setMedium(med);
         }
         catch (InstantiationException e)
         {
@@ -112,7 +111,7 @@ public class MainWindowController {
     
     void resetParticles(ActionEvent event)
     {
-        simulation.reset();
+        Simulation.reset();
     }
     
     
@@ -124,7 +123,7 @@ public class MainWindowController {
         {
             Class<?> type = Class.forName("particles." + choice);
             Particle particle = (Particle) type.newInstance();
-            simulation.addParticle(particle);
+            Simulation.addParticle(particle);
         }
         catch (InstantiationException e)
         {
@@ -148,7 +147,7 @@ public class MainWindowController {
         try
         {
             frequency = Double.parseDouble(frequencyInput.getText());
-            simulation.setFrequency(frequency);
+            Simulation.setFrequency(frequency);
             
             frequencyText.setText(frequencyInput.getText() + "Hz");
             System.err.println("frequency updated");
@@ -168,7 +167,7 @@ public class MainWindowController {
         try
         {
             voltage = Double.parseDouble(voltageInput.getText());
-            simulation.setVoltage(voltage);
+            Simulation.setVoltage(voltage);
             
             voltageText.setText(voltageInput.getText() + "V");
             System.err.println("voltage updated");
@@ -187,7 +186,7 @@ public class MainWindowController {
      */
     void play(ActionEvent event)
     {
-        simulation.play();
+        Simulation.play();
 
         System.err.println("playing");
     }
@@ -199,7 +198,7 @@ public class MainWindowController {
      */
     void pause(ActionEvent event)
     {
-        simulation.pause();
+        Simulation.pause();
         System.err.println("pausing");
     }
     
@@ -211,10 +210,10 @@ public class MainWindowController {
      */
     void stop(ActionEvent event)
     {
-        simulation.stop();
+        Simulation.stop();
         
         speedMultiplier = 1;
-        simulation.setDeltaTime(Simulation.DEFAULT_TIME_STEP * speedMultiplier);
+        Simulation.setDeltaTime(Simulation.DEFAULT_TIME_STEP * speedMultiplier);
         speedText.setText(speedMultiplier + "x");
         System.err.println("stopping");
     }
@@ -229,7 +228,7 @@ public class MainWindowController {
         if (speedMultiplier > SPEED_MIN)
         {
             speedMultiplier /= 2;
-            simulation.setDeltaTime(Simulation.DEFAULT_TIME_STEP * speedMultiplier);
+            Simulation.setDeltaTime(Simulation.DEFAULT_TIME_STEP * speedMultiplier);
             speedText.setText(speedMultiplier + "x");
             System.err.println("slowing");
         }
@@ -245,7 +244,7 @@ public class MainWindowController {
         if (speedMultiplier < SPEED_MAX)
         {
             speedMultiplier *= 2;
-            simulation.setDeltaTime(Simulation.DEFAULT_TIME_STEP * speedMultiplier);
+            Simulation.setDeltaTime(Simulation.DEFAULT_TIME_STEP * speedMultiplier);
             speedText.setText(speedMultiplier + "x");
             System.err.println("speeding");
         }
@@ -267,9 +266,10 @@ public class MainWindowController {
         slowerButton.setOnAction(this::slower);
         fasterButton.setOnAction(this::faster);
         
-        simulation = new Simulation();
+//        simulation = new Simulation();
         // Initialize choicebuttons with their selections -> read appropriate folders and use the class names as strings
         initializeChoiceBoxes();
+        Simulation.main();
     }
     
     

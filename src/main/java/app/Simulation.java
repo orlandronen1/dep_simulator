@@ -1,7 +1,6 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import field.Dipole;
@@ -16,78 +15,19 @@ public class Simulation
     public final static int DEFAULT_TIME_STEP = 50;
     public final static double DEFAULT_BOUND = 150e-6;  // 150um
     
-    private int thread_sleep = 50;
+    private static int thread_sleep = 50;
     
-    private List<Particle> particles = new ArrayList<Particle>();
-    private List<Vector> initialPositions = new ArrayList<Vector>();
-    private Medium medium = new DeionizedWater(DEFAULT_BOUND / 2);
-    private double frequency = 1000;
-    private double deltaTime = DEFAULT_TIME_STEP;
-    private Vector lowBounds = new Vector();
-    private Vector highBounds = new Vector(DEFAULT_BOUND);
-    private Electrode electrode = new Dipole(0, new Vector(Simulation.DEFAULT_BOUND / 5, 0, Simulation.DEFAULT_BOUND / 2), 
+    private static List<Particle> particles = new ArrayList<Particle>();
+    private static List<Vector> initialPositions = new ArrayList<Vector>();
+    private static Medium medium = new DeionizedWater(DEFAULT_BOUND / 2);
+    private static double frequency = 1000;
+    private static double deltaTime = DEFAULT_TIME_STEP;
+    private static Vector lowBounds = new Vector();
+    private static Vector highBounds = new Vector(DEFAULT_BOUND);
+    private static Electrode electrode = new Dipole(0, new Vector(Simulation.DEFAULT_BOUND / 5, 0, Simulation.DEFAULT_BOUND / 2), 
             new Vector(Simulation.DEFAULT_BOUND * 4 / 5, 0, Simulation.DEFAULT_BOUND / 2));
-    private Thread simulationLoop;
-    
-    private Runnable loop = new Runnable()
-            {
-                public void run()
-                {
-                    while(!Thread.interrupted())
-                    {
-                        try
-                        {
-                            System.err.println("loop");
-                            Vector fDEP, fDrag, fBouyancy, fTotal;
-                            double depCoefficient;
-                            
-                            for (Particle particle : particles)
-                            {
-                                fTotal = new Vector();
-                                
-                                // Calculate DEP force
-                                /*
-                                 * Fdep = 2 * Pi * particle radius ^ 3 * permittivity of a vaccuum * permittivity of particle *
-                                 *          real part of Clausius-Mossotti factor * gradient of electric field squared
-                                 */
-                                depCoefficient = 2 * Math.PI * Math.pow(particle.getRadius(), 3) * Particle.VACUUM_PERMITTIVITY * particle.getPermittivity() * particle.getFcmReal();
-                                fDEP = electrode.getGradientComponent(particle.getPosition());
-                                fDEP.mult(depCoefficient);
-                                
-                                // Calculate buoyant force
-                                // TODO do the actual calculation
-                                fBouyancy = new Vector(particle.getGravity());
-                                fBouyancy.mult(-1);
-                                
-                                // Calculate drag force
-                                fDrag = new Vector();
-                                
-                                // Calculate Brownian motion force
-                                // TODO brownian motion
-                                
-                                
-                                // Sum forces
-                                fTotal.add(fDEP);
-                                fTotal.add(fDrag);
-                                fTotal.add(fBouyancy);
-                                fTotal.add(particle.getGravity());
-                                
-                                // Move particle
-                                particle.move(fTotal, deltaTime);
-                                
-                                // Check bounds
-                                checkBounds(particle);
-                                
-                                Thread.sleep(thread_sleep);
-                            }
-                        }
-                        catch (InterruptedException e)
-                        {
-                            Thread.currentThread().interrupt();
-                        }
-                    }
-                }
-            };
+    private static boolean loop = false;
+    private static Thread simulationLoop;
     
     /**
      * Checks if a particle is within the bounds of the container. If not, moves the particle
@@ -95,7 +35,7 @@ public class Simulation
      * 
      * @param particle  the Particle to check
      */
-    void checkBounds(Particle particle)
+    static void checkBounds(Particle particle)
     {
         Vector position = particle.getPosition();
         double radius = particle.getRadius();
@@ -135,7 +75,7 @@ public class Simulation
     /**
      * Starts the simulation
      */
-    void play()
+    static void play()
     {
         /* TODO collision detection
          * maybe would be better to keep another list of Ftotal's
@@ -153,33 +93,23 @@ public class Simulation
          * Check collision w/ particles in current and adjacent subspaces
          *   If distance b/w particles is < sum of radii, particles have collided
          */
-        
-        // If there are particles in the system, run
-        if (!particles.isEmpty())
-        {
-            simulationLoop = new Thread(loop);
-            simulationLoop.run();
-        }
+        loop = true;
     }
     
     /**
      * Pauses the simulation
      */
-    void pause()
+    static void pause()
     {
-        // Interrupt loop if it has been initialized and isn't interrupted
-        if (simulationLoop != null && !simulationLoop.isInterrupted())
-            simulationLoop.interrupt();
+        loop = false;
     }
     
     /**
      * Stops the simulation and resets Particles to their initial positions 
      */
-    void stop()
+    static void stop()
     {
-        // Interrupt loop if it has been initialized and isn't interrupted
-        if (simulationLoop != null && !simulationLoop.isInterrupted())
-            simulationLoop.interrupt();
+        loop = false;
         
         // Iterate over each particle and reset to initial position
         if (!particles.isEmpty())
@@ -195,12 +125,12 @@ public class Simulation
     /**
      * Resets the simulation. Removes all particles.
      */
-    void reset()
+    static void reset()
     {
         // Interrupt loop if it has been initialized and isn't interrupted
-        if (simulationLoop != null && !simulationLoop.isInterrupted())
-            simulationLoop.interrupt();
-        
+//        if (simulationLoop != null && !simulationLoop.isInterrupted())
+//            simulationLoop.interrupt();
+        loop = false;
         particles = new ArrayList<Particle>();
         initialPositions = new ArrayList<Vector>();
     }
@@ -210,7 +140,7 @@ public class Simulation
      * 
      * @param particle  the Particle to add
      */
-    void addParticle(Particle particle)
+    static void addParticle(Particle particle)
     {
         // TODO: algorithm for placing particles
         /*
@@ -228,7 +158,7 @@ public class Simulation
      * 
      * @return a List of Particles currently in the simulation
      */
-    List<Particle> getParticles()
+    static List<Particle> getParticles()
     {
         return particles;
     }
@@ -239,7 +169,7 @@ public class Simulation
      * 
      * @param config    the Electrode type to use
      */
-    void setElectrode(Electrode elec)
+    static void setElectrode(Electrode elec)
     {
         electrode = elec;
     }
@@ -248,13 +178,13 @@ public class Simulation
      * 
      * @return  the current Electrode type
      */
-    Electrode getElectrode()
+    static Electrode getElectrode()
     {
         return electrode;
     }
     
     
-    void setVoltage(double voltage)
+    static void setVoltage(double voltage)
     {
         electrode.setVoltage(voltage);
     }
@@ -264,7 +194,7 @@ public class Simulation
      * 
      * @param bounds    a Vector describing the lower bounds of the container
      */
-    void setLowBounds(Vector bounds)
+    static void setLowBounds(Vector bounds)
     {
         lowBounds = new Vector(bounds);
     }
@@ -273,7 +203,7 @@ public class Simulation
      * 
      * @return  a Vector describing the lower bounds of the container
      */
-    Vector getLowBounds()
+    static Vector getLowBounds()
     {
         return lowBounds;
     }
@@ -284,7 +214,7 @@ public class Simulation
      * 
      * @param bounds    a Vector describing the upper bounds of the container
      */
-    void setHighBounds(Vector bounds)
+    static void setHighBounds(Vector bounds)
     {
         highBounds = new Vector(bounds);
     }
@@ -293,7 +223,7 @@ public class Simulation
      * 
      * @return  a Vector describing the upper bounds of the container
      */
-    Vector getHighBounds()
+    static Vector getHighBounds()
     {
         return highBounds;
     }
@@ -304,7 +234,7 @@ public class Simulation
      * 
      * @param med   the Medium to use
      */
-    void setMedium(Medium med)
+    static void setMedium(Medium med)
     {
         medium = med;
         
@@ -316,7 +246,7 @@ public class Simulation
      * 
      * @return  the current Medium
      */
-    Medium getMedium()
+    static Medium getMedium()
     {
         return medium;
     }
@@ -327,7 +257,7 @@ public class Simulation
      * 
      * @param time  the time increment to use when simulating
      */
-    void setDeltaTime(double time)
+    static void setDeltaTime(double time)
     {
         deltaTime = time;
     }
@@ -336,7 +266,7 @@ public class Simulation
      * 
      * @return  the time increment
      */
-    double getDeltaTime()
+    static double getDeltaTime()
     {
         return deltaTime;
     }
@@ -347,7 +277,7 @@ public class Simulation
      * 
      * @param freq  the frequency to use
      */
-    void setFrequency(double freq)
+    static void setFrequency(double freq)
     {
         frequency = freq;
         
@@ -359,8 +289,76 @@ public class Simulation
      * 
      * @return  the current frequency
      */
-    double getFrequency()
+    static double getFrequency()
     {
         return frequency;
+    }
+    
+    
+    public static void main()
+    {
+        simulationLoop = new Thread(new Runnable()
+        {
+            public void run()
+            {
+                while(true)
+                {
+                    try
+                    {
+                        if (loop)
+                        {
+                            Vector fDEP, fDrag, fBouyancy, fTotal;
+                            double depCoefficient;
+                            
+                            for (Particle particle : particles)
+                            {
+                                fTotal = new Vector();
+                                
+                                // Calculate DEP force
+                                /*
+                                 * Fdep = 2 * Pi * particle radius ^ 3 * permittivity of a vaccuum * permittivity of particle *
+                                 *          real part of Clausius-Mossotti factor * gradient of electric field squared
+                                 */
+                                depCoefficient = 2 * Math.PI * Math.pow(particle.getRadius(), 3) * Particle.VACUUM_PERMITTIVITY * particle.getPermittivity() * particle.getFcmReal();
+                                fDEP = electrode.getGradientComponent(particle.getPosition());
+                                fDEP.mult(depCoefficient);
+                                
+                                // Calculate buoyant force
+                                // TODO do the actual calculation
+                                fBouyancy = new Vector(particle.getGravity());
+                                fBouyancy.mult(-1);
+                                
+                                // Calculate drag force
+                                fDrag = new Vector();
+                                
+                                // Calculate Brownian motion force
+                                // TODO brownian motion
+                                
+                                
+                                // Sum forces
+                                fTotal.add(fDEP);
+                                fTotal.add(fDrag);
+                                fTotal.add(fBouyancy);
+                                fTotal.add(particle.getGravity());
+                                
+                                // Move particle
+                                particle.move(fTotal, deltaTime);
+                                
+                                // Check bounds
+                                checkBounds(particle);
+                            }
+                        }
+                        
+                        Thread.sleep(thread_sleep);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            }
+        });
+        simulationLoop.setDaemon(true);
+        simulationLoop.start();
     }
 }
