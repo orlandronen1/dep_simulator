@@ -66,7 +66,7 @@ public class MainWindowController {
         
         try
         {
-            Class<?> type = Class.forName("bin/field/" + choice);
+            Class<?> type = Class.forName("field." + choice);
             Electrode config = (Electrode) type.newInstance();
             simulation.setElectrode(config);
         }
@@ -91,7 +91,7 @@ public class MainWindowController {
         
         try
         {
-            Class<?> type = Class.forName("/src/main/java/medium/" + choice);
+            Class<?> type = Class.forName("medium." + choice);
             Medium med = (Medium) type.newInstance();
             simulation.setMedium(med);
         }
@@ -118,11 +118,11 @@ public class MainWindowController {
     
     void addParticle(ActionEvent event)
     {
-        String choice = electrodeChoiceBox.getValue();
+        String choice = particlesChoiceBox.getValue();
         
         try
         {
-            Class<?> type = Class.forName(choice);
+            Class<?> type = Class.forName("particles." + choice);
             Particle particle = (Particle) type.newInstance();
             simulation.addParticle(particle);
         }

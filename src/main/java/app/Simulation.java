@@ -37,6 +37,7 @@ public class Simulation
                     {
                         try
                         {
+                            System.err.println("loop");
                             Vector fDEP, fDrag, fBouyancy, fTotal;
                             double depCoefficient;
                             
@@ -77,7 +78,7 @@ public class Simulation
                                 // Check bounds
                                 checkBounds(particle);
                                 
-                                Thread.sleep(thread_sleep);   // TODO change this # to a var and decide on a value
+                                Thread.sleep(thread_sleep);
                             }
                         }
                         catch (InterruptedException e)
@@ -156,7 +157,7 @@ public class Simulation
         // If there are particles in the system, run
         if (!particles.isEmpty())
         {
-            simulationLoop = new Thread(loop, new String("simulationLoopThread"));
+            simulationLoop = new Thread(loop);
             simulationLoop.run();
         }
     }
@@ -181,10 +182,13 @@ public class Simulation
             simulationLoop.interrupt();
         
         // Iterate over each particle and reset to initial position
-        for (int i = 0; i < particles.size(); i++)
+        if (!particles.isEmpty())
         {
-            particles.get(i).setPosition(initialPositions.get(i));
-            // TODO reset velocities too
+            for (int i = 0; i < particles.size(); i++)
+            {
+                particles.get(i).setPosition(initialPositions.get(i));
+                // TODO reset velocities too
+            }
         }
     }
     
@@ -208,8 +212,6 @@ public class Simulation
      */
     void addParticle(Particle particle)
     {
-        particles.add(particle);
-        particle.calcFcm(medium, frequency);
         // TODO: algorithm for placing particles
         /*
          * check medium's level, place particles on that y coordinate
@@ -217,6 +219,9 @@ public class Simulation
          *  ifEmpty() == true, start at center point
          *  else, go to last entry(?)
          */
+        initialPositions.add(particle.getPosition());
+        particles.add(particle);
+        particle.calcFcm(medium, frequency);
     }
     
     /**
