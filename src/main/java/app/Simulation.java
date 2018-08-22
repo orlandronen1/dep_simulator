@@ -340,10 +340,10 @@ public class Simulation
                                 
                                 // Calculate DEP force
                                 /*
-                                 * Fdep = 2 * Pi * particle radius ^ 3 * permittivity of a vaccuum * permittivity of particle *
+                                 * Fdep = 2 * Pi * particle radius ^ 3 * permittivity of a vaccuum * permittivity of medium *
                                  *          real part of Clausius-Mossotti factor * gradient of electric field squared
                                  */
-                                depCoefficient = 2 * Math.PI * Math.pow(particle.getRadius(), 3) * Particle.VACUUM_PERMITTIVITY * particle.getPermittivity() * particle.getFcmReal();
+                                depCoefficient = 2 * Math.PI * Math.pow(particle.getRadius(), 3) * Particle.VACUUM_PERMITTIVITY * medium.getPermittivity() * particle.getFcmReal();
                                 fDEP = electrode.getGradientComponent(particle.getPosition());
                                 fDEP.mult(depCoefficient);
                                 
@@ -370,7 +370,7 @@ public class Simulation
                                 
                                 // Check bounds
                                 checkBounds(particle);
-                                System.err.println(particle + "   " + particle.getPosition());
+                                System.err.println(particle + "   " + particle.getPosition()); // TODO remove
                             }
                         }
                         
