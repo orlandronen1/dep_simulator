@@ -123,7 +123,7 @@
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font></Button>
-                  <Text fx:id="speedText" layoutX="118.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1x">
+                  <Text fx:id="speedText" layoutX="110.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1.0x">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>

@@ -19,13 +19,17 @@ public class Simulation
     
     private static List<Particle> particles = new ArrayList<Particle>();
     private static List<Vector> initialPositions = new ArrayList<Vector>();
+    
     private static Medium medium = new DeionizedWater(DEFAULT_BOUND / 2);
-    private static double frequency = 1000;
-    private static double deltaTime = DEFAULT_TIME_STEP;
-    private static Vector lowBounds = new Vector();
-    private static Vector highBounds = new Vector(DEFAULT_BOUND);
     private static Electrode electrode = new Dipole(0, new Vector(Simulation.DEFAULT_BOUND / 5, 0, Simulation.DEFAULT_BOUND / 2), 
             new Vector(Simulation.DEFAULT_BOUND * 4 / 5, 0, Simulation.DEFAULT_BOUND / 2));
+    private static double frequency = 1000;
+    private static double deltaTime = DEFAULT_TIME_STEP;
+    
+    private static Vector lowBounds = new Vector();
+    private static Vector highBounds = new Vector(DEFAULT_BOUND);
+    private static Vector center = new Vector(DEFAULT_BOUND / 3);
+    
     private static boolean loop = false;
     private static Thread simulationLoop;
     
@@ -149,9 +153,11 @@ public class Simulation
          *  ifEmpty() == true, start at center point
          *  else, go to last entry(?)
          */
-        initialPositions.add(particle.getPosition());
+        initialPositions.add(center);
         particles.add(particle);
-        particle.calcFcm(medium, frequency);
+        
+        particles.get(particles.size() - 1).setPosition(center);;
+        particles.get(particles.size() - 1).calcFcm(medium, frequency);
     }
     
     /**
@@ -196,7 +202,16 @@ public class Simulation
      */
     static void setLowBounds(Vector bounds)
     {
-        lowBounds = new Vector(bounds);
+        // Low bounds must be lower than high bounds
+        if (bounds.getX() < highBounds.getX() && bounds.getY() < highBounds.getY() && bounds.getZ() < highBounds.getZ())
+            lowBounds = new Vector(bounds);
+        else
+            throw new IllegalArgumentException("Low bounds not lower than high bounds");
+        
+        // Recalculate center point
+        center = new Vector(highBounds);
+        center.add(lowBounds);
+        center.mult(0.5);
     }
     
     /**
@@ -216,7 +231,16 @@ public class Simulation
      */
     static void setHighBounds(Vector bounds)
     {
-        highBounds = new Vector(bounds);
+        // High bounds must be higher than low bounds
+        if (bounds.getX() > lowBounds.getX() && bounds.getY() > lowBounds.getY() && bounds.getZ() > lowBounds.getZ())
+            highBounds = new Vector(bounds);
+        else
+            throw new IllegalArgumentException("High bounds not higher than low bounds");
+        
+        // Recalculate center point
+        center = new Vector(highBounds);
+        center.add(lowBounds);
+        center.mult(0.5);
     }
     
     /**
@@ -346,6 +370,7 @@ public class Simulation
                                 
                                 // Check bounds
                                 checkBounds(particle);
+                                System.err.println(particle + "   " + particle.getPosition());
                             }
                         }
                         
